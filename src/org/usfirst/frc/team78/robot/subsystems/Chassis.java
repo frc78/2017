@@ -27,6 +27,8 @@ public class Chassis extends Subsystem {
 
 //Sensors	
 	public final AHRS ahrs = new AHRS(SPI.Port.kMXP);
+	public final Encoder leftEnc = new Encoder(RobotMap.LEFT_DRIVE_ENCA, RobotMap.LEFT_DRIVE_ENCB);
+	public final Encoder rightEnc = new Encoder(RobotMap.RIGHT_DRIVE_ENCA, RobotMap.RIGHT_DRIVE_ENCB);
 	
 //Drive Methods	
 	public void setSpeed(double left, double right){

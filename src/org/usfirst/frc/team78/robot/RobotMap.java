@@ -19,12 +19,26 @@ public class RobotMap {
 		public static final int RIGHT_REAR = 5;
 		public static final int RIGHT_TOP = 6;
 		
-		//shooter
-		public static final int SHOOTERLEFT = 7;
-		public static final int SHOOTERRIGHT = 8;
+		//Shooter
+		public static final int SHOOTER_LEFT = 7;
+		public static final int SHOOTER_RIGHT = 8;
+		
+		//Intake
+		public static final int INTAKE_MOTOR = 9;
 		
 	//Sensors
-		public static final int SHOOTERENCA = 0;
-		public static final int SHOOTERENCB = 1;
+		//Shooter
+		public static final int SHOOTER_ENCA = 0;
+		public static final int SHOOTER_ENCB = 1;
+		 
+		//Chassis
+		public static final int LEFT_DRIVE_ENCA = 2;
+		public static final int LEFT_DRIVE_ENCB = 3;
+		public static final int RIGHT_DRIVE_ENCA = 4;
+		public static final int RIGHT_DRIVE_ENCB = 5;
+		
+		//Intake
+		public static final int INTAKE_ENCA = 6;
+		public static final int INTAKE_ENCB = 7;
 		
 }
