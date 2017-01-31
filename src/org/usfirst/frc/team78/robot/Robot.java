@@ -2,6 +2,7 @@
 package org.usfirst.frc.team78.robot;
 
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
+import org.usfirst.frc.team78.robot.subsystems.Shooter;
 import org.usfirst.frc.team78.robot.subsystems.Vision;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -23,6 +24,7 @@ public class Robot extends IterativeRobot {
 
 	public static final Chassis chassis = new Chassis();
 	public static final Vision vision = new Vision();
+	public static final Shooter shooter = new Shooter();
 	public static OI oi;
 
 	Command autonomousCommand;
