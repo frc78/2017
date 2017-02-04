@@ -45,7 +45,7 @@ public class Chassis extends Subsystem {
     	double left = Robot.oi.getDriverLeftStick();
     	double right = Robot.oi.getDriverRightStick();
     	
-    	setSpeed(-left,right);
+    	setSpeed(-left, right);
     }
 	
 	public void stopAllDrive(){
