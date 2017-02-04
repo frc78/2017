@@ -10,14 +10,14 @@ package org.usfirst.frc.team78.robot;
 public class RobotMap {
 	
 	//Motors
-		//Left Drive
-		public static final int LEFT_FRONT = 1;  
-		public static final int LEFT_REAR = 2;
-		public static final int LEFT_TOP = 3;
+		//Left Drive 
+		public static final int LEFT_FRONT = 3;  
+		public static final int LEFT_REAR = 1;
+		public static final int LEFT_TOP = 2;
 		//Right Drive
 		public static final int RIGHT_FRONT = 4;
-		public static final int RIGHT_REAR = 5;
-		public static final int RIGHT_TOP = 6;
+		public static final int RIGHT_REAR = 6;
+		public static final int RIGHT_TOP = 5;
 		
 		//Shooter
 		public static final int SHOOTER_LEFT = 7;
