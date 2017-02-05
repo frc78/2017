@@ -1,5 +1,7 @@
 package org.usfirst.frc.team78.robot;
 
+import org.usfirst.frc.team78.robot.commands.intake;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -28,7 +30,14 @@ public static Joystick driverStick;
 	public OI(){
 		driverStick = new Joystick(0);
 		
+		btn5 = new JoystickButton(driverStick, 5);
+		btn5.whileHeld(new intake("in", 0.65));
+		
+		btn6 = new JoystickButton(driverStick, 6);
+		if(!btn5.get()){
+			btn6.whileHeld(new intake("out", 0.65));
 		}
+	}
 	
 	
 	

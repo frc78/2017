@@ -20,11 +20,11 @@ public class RobotMap {
 		public static final int RIGHT_TOP = 5;
 		
 		//Shooter
-		public static final int SHOOTER_LEFT = 7;
-		public static final int SHOOTER_RIGHT = 8;
+		public static final int SHOOTER_LEFT = 8;
+		public static final int SHOOTER_RIGHT = 9;
 		
 		//Intake
-		public static final int INTAKE_MOTOR = 9;
+		public static final int INTAKE_MOTOR = 7;
 		
 	//Sensors
 		//Shooter

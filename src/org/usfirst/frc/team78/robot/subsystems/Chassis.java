@@ -6,8 +6,7 @@ import org.usfirst.frc.team78.robot.commands.DriveWithJoysticks;
 
 import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+ 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
