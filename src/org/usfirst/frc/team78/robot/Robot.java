@@ -42,6 +42,8 @@ public class Robot extends IterativeRobot {
 //		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		
+		chassis.motorInit();
 	}
 
 	/**
@@ -102,6 +104,7 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		
 	}
 
 	/**
@@ -109,6 +112,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		
+		
+		
+		SmartDashboard.putNumber("left motor '.get' ", chassis.leftFront.getPosition());
+		SmartDashboard.putNumber("right motor '.get' ", chassis.rightFront.getPosition());
+		
 		Scheduler.getInstance().run();
 	}
 

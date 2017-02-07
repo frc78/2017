@@ -1,5 +1,6 @@
 package org.usfirst.frc.team78.robot;
 
+import org.usfirst.frc.team78.robot.commands.cantalonPosTest;
 import org.usfirst.frc.team78.robot.commands.intake;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -37,6 +38,8 @@ public static Joystick driverStick;
 		if(!btn5.get()){
 			btn6.whileHeld(new intake("out", 0.65));
 		}
+		
+		
 	}
 	
 	
