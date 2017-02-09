@@ -39,7 +39,8 @@ public static Joystick driverStick;
 			btn6.whileHeld(new intake("out", 0.65));
 		}
 		
-		
+		btn1 = new JoystickButton(driverStick, 1);
+		btn1.whenPressed(new cantalonPosTest());
 	}
 	
 	

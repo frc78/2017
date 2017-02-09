@@ -44,6 +44,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto mode", chooser);
 		
 		chassis.motorInit();
+		chassis.rightFront.setPosition(0);
+		chassis.leftFront.setPosition(0);
 	}
 
 	/**
@@ -104,7 +106,7 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		
+		chassis.motorInit();
 	}
 
 	/**

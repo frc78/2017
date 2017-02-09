@@ -24,8 +24,8 @@ public class Chassis extends Subsystem {
 		   CANTalon leftRear = new CANTalon(RobotMap.LEFT_REAR);
 	       CANTalon leftTop = new CANTalon(RobotMap.LEFT_TOP);
 	public CANTalon rightFront = new CANTalon(RobotMap.RIGHT_FRONT);
-	       CANTalon rightRear = new CANTalon(RobotMap.RIGHT_REAR);
-	       CANTalon rightTop = new CANTalon(RobotMap.RIGHT_TOP);
+		   CANTalon rightRear = new CANTalon(RobotMap.RIGHT_REAR);
+		   CANTalon rightTop = new CANTalon(RobotMap.RIGHT_TOP);
 	
 	public void motorInit(){
 		leftRear.changeControlMode(TalonControlMode.Follower);
@@ -38,22 +38,8 @@ public class Chassis extends Subsystem {
 		rightTop.changeControlMode(TalonControlMode.Follower);
 		rightTop.set(rightFront.getDeviceID());	
 		
-//		leftFront.changeControlMode(TalonControlMode.Position);
-//		leftFront.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-//		leftFront.configEncoderCodesPerRev(120);
-//		
-//		rightFront.changeControlMode(TalonControlMode.Position);
-//		rightFront.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-//		rightFront.configEncoderCodesPerRev(120);
-	
-//		leftFront.reset();
-//		rightFront.reset();
-//		
-//		leftFront.enable();
-//		rightFront.enable();
-//		
-//		leftFront.set(0);
-//		rightFront.set(0);
+		Robot.chassis.rightFront.configEncoderCodesPerRev(120);
+		Robot.chassis.leftFront.configEncoderCodesPerRev(120);
 	}
 	 
 
@@ -64,7 +50,7 @@ public class Chassis extends Subsystem {
 	
 //Drive Methods	
 	public void setSpeed(double left, double right){
-    	leftFront.set(left);
+    	leftFront.set(-left);
     	rightFront.set(right);
     	//other motors are set from the CANtalon following mode 
     }
