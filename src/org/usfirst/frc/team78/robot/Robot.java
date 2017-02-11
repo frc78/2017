@@ -114,7 +114,6 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		
 		
-		
 		SmartDashboard.putNumber("left motor '.get' ", chassis.leftFront.getPosition());
 		SmartDashboard.putNumber("right motor '.get' ", chassis.rightFront.getPosition());
 		

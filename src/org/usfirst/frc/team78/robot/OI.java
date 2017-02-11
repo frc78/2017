@@ -2,6 +2,7 @@ package org.usfirst.frc.team78.robot;
 
 import org.usfirst.frc.team78.robot.commands.cantalonPosTest;
 import org.usfirst.frc.team78.robot.commands.intake;
+import org.usfirst.frc.team78.robot.LogitechF310Gamepad;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -13,51 +14,57 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 
-public static Joystick driverStick;
+	public static LogitechF310Gamepad driverControl;
 	
+	public static Joystick driverStick;
+//	
 	final static double STICK_DEADZONE = 0.05;
-	
-	public Button btn1;
-	public Button btn2;
-	public Button btn3;
-	public Button btn4;
-	public Button btn5;
-	public Button btn6;
-	public Button btn7;
-	public Button btn8;
-	public Button leftStickBtn11;
-	public Button rightStickBtn12;
+//	
+//	public Button btn1;
+//	public Button btn2;
+//	public Button btn3;
+//	public Button btn4;
+//	public Button btn5;
+	public Button intakeFuel;
+//	public Button btn6;
+//	public Button btn7;
+//	public Button btn8;
+//	public Button leftStickBtn11;
+//	public Button rightStickBtn12;
 	
 	public OI(){
 		driverStick = new Joystick(0);
+		driverControl = new LogitechF310Gamepad(0);
 		
-		btn5 = new JoystickButton(driverStick, 5);
-		btn5.whileHeld(new intake("in", 0.65));
-		
-		btn6 = new JoystickButton(driverStick, 6);
-		if(!btn5.get()){
-			btn6.whileHeld(new intake("out", 0.65));
-		}
+		driverControl.leftBumper.whileHeld(new intake("in", 0.65));
 		
 		
+//		
+//		btn5 = new JoystickButton(driverStick, 5);
+//		btn5.whileHeld(new intake("in", 0.65));
+//		
+//		btn6 = new JoystickButton(driverStick, 6);
+//		if(!btn5.get()){
+//			btn6.whileHeld(new intake("out", 0.65));
+//		}
+//		
+//		
 	}
-	
-	
-	
+//	
+//	
+//	
 	public double getDriverLeftStick(){
-		double stick = driverStick.getY();
-		if(Math.abs(stick) < STICK_DEADZONE){
+		if(Math.abs(driverControl.getLeftStickY()) < STICK_DEADZONE){
 			return 0;
 		}else{
-			return -stick;
+			return -driverControl.getLeftStickY();
 		}
 	}
 	
 	public double getDriverRightStick() {
-		double stick = driverStick.getThrottle();
-		if (Math.abs(stick) < STICK_DEADZONE){
+		if (Math.abs(driverControl.getRightStickY()) < STICK_DEADZONE){
 			return 0;
 		}else
-			return -stick;
+			return -driverControl.getRightStickY();
 	}
 }
