@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team78.robot;
 
+import org.usfirst.frc.team78.robot.commands.AUTO_doNothing;
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
 import org.usfirst.frc.team78.robot.subsystems.Intake;
 import org.usfirst.frc.team78.robot.subsystems.Shooter;
@@ -42,6 +43,10 @@ public class Robot extends IterativeRobot {
 //		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		
+		//AUTOS
+		chooser.addDefault("Default: Do Nothing", new AUTO_doNothing());
+		//chooser.addObject("Auto", new Auto());
 		
 		chassis.motorInit();
 		chassis.rightFront.setPosition(0);

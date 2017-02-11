@@ -15,10 +15,14 @@ import edu.wpi.first.wpilibj.command.Command;
 public class cantalonPosTest extends Command {
 
 	
-    public cantalonPosTest() {
+	double desiredRots;
+	
+    public cantalonPosTest(double desiredFeet) {
         // Use requires() here to declare subsystem dependencies
        // eg. requires(chassis);
     	requires(Robot.chassis);
+    	
+    	desiredRots = (12 * desiredFeet) / (3.5 * Math.PI);  //Desired distance (in) / Circumference (in/rot)
     }
 
     // Called just before this Command runs the first time
@@ -35,14 +39,16 @@ public class cantalonPosTest extends Command {
     	Robot.chassis.rightFront.setI(0.00078);
     	Robot.chassis.rightFront.setD(0.3);
     	
+    	Robot.chassis.leftFront.changeControlMode(TalonControlMode.Follower);
     	
     	Robot.chassis.rightFront.enableControl();
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.chassis.rightFront.changeControlMode(TalonControlMode.Position);
-    	Robot.chassis.rightFront.set(10);
+    	Robot.chassis.rightFront.set(desiredRots);
     	
     	
     }
@@ -56,6 +62,7 @@ public class cantalonPosTest extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.chassis.leftFront.changeControlMode(TalonControlMode.PercentVbus);
     	Robot.chassis.rightFront.changeControlMode(TalonControlMode.PercentVbus);
     	Robot.chassis.stopAllDrive();
     }
