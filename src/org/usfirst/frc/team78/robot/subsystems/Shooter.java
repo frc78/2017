@@ -14,10 +14,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Shooter extends Subsystem {
 	
 	//Motors
-	CANTalon shooterLeft = new CANTalon(RobotMap.SHOOTER_LEFT);
-	CANTalon shooterRight = new CANTalon(RobotMap.SHOOTER_RIGHT);
+	public CANTalon shooterLeft = new CANTalon(RobotMap.SHOOTER_LEFT);
+	public CANTalon shooterRight = new CANTalon(RobotMap.SHOOTER_RIGHT);
 	
-	
+	public void shooterMotorInit() {
+		shooterRight.changeControlMode(TalonControlMode.Follower);
+		shooterRight.set(shooterLeft.getDeviceID());
+		shooterRight.reverseOutput(true);
+	}
 	
 	//Sensors
 	public final Encoder shooterEnc = new Encoder(RobotMap.SHOOTER_ENCA, RobotMap.SHOOTER_ENCB, true, EncodingType.k4X);

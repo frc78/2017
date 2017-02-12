@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class cantalonPosTest extends Command {
+public class driveStraight extends Command {
 
 	
-	double desiredRots;
+	public double desiredRots;
 	
-    public cantalonPosTest(double desiredFeet) {
+    public driveStraight(double desiredFeet) {
         // Use requires() here to declare subsystem dependencies
        // eg. requires(chassis);
     	requires(Robot.chassis);
@@ -34,14 +34,30 @@ public class cantalonPosTest extends Command {
     	Robot.chassis.rightFront.reverseSensor(true);
     	Robot.chassis.rightFront.setAllowableClosedLoopErr(0);
     	Robot.chassis.rightFront.setProfile(0);
+    	Robot.chassis.rightFront.configMaxOutputVoltage(8);
     	
-    	Robot.chassis.rightFront.setP(0.6);
-    	Robot.chassis.rightFront.setI(0.00078);
-    	Robot.chassis.rightFront.setD(0.3);
+    	Robot.chassis.rightFront.setP(0.95);
+    	Robot.chassis.rightFront.setI(0.00005);
+    	Robot.chassis.rightFront.setD(1.15);
     	
-    	Robot.chassis.leftFront.changeControlMode(TalonControlMode.Follower);
+    	Robot.chassis.leftFront.setP(0.95);
+    	Robot.chassis.leftFront.setI(0.00005);
+    	Robot.chassis.leftFront.setD(1.15);
+    	
+    	Robot.chassis.leftFront.configEncoderCodesPerRev(120);
+    	Robot.chassis.leftFront.setPosition(Robot.chassis.rightFront.getPosition());
+    	Robot.chassis.leftFront.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    	Robot.chassis.leftFront.reverseSensor(true);
+    	Robot.chassis.leftFront.setAllowableClosedLoopErr(0);
+    	Robot.chassis.leftFront.setProfile(0);
+    	Robot.chassis.leftFront.configMaxOutputVoltage(8);
+    	
+//    	Robot.chassis.leftFront.changeControlMode(TalonControlMode.Follower);
+//    	Robot.chassis.leftFront.set(Robot.chassis.rightFront.getDeviceID());
+//    	Robot.chassis.leftFront.reverseOutput(true);
     	
     	Robot.chassis.rightFront.enableControl();
+    	Robot.chassis.leftFront.enableControl();
     	
     }
 
@@ -50,14 +66,15 @@ public class cantalonPosTest extends Command {
     	Robot.chassis.rightFront.changeControlMode(TalonControlMode.Position);
     	Robot.chassis.rightFront.set(desiredRots);
     	
+    	Robot.chassis.leftFront.changeControlMode(TalonControlMode.Position);
+    	Robot.chassis.leftFront.set(desiredRots);
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-       if(Robot.chassis.rightFront.getPosition() == 10){
-    	   return true;
-       }else{return false;}
+    	 return Robot.chassis.isAtDistanceTarget(desiredRots);
+    	
     }
 
     // Called once after isFinished returns true

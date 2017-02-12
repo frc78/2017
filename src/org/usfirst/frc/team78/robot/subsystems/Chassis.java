@@ -12,6 +12,7 @@ import com.kauailabs.navx.frc.AHRS;
  
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -33,13 +34,18 @@ public class Chassis extends Subsystem {
 		leftTop.changeControlMode(TalonControlMode.Follower);
 		leftTop.set(leftFront.getDeviceID()); 
 		
+		leftFront.reverseOutput(true);
+		
 		rightRear.changeControlMode(TalonControlMode.Follower);
 		rightRear.set(rightFront.getDeviceID());
 		rightTop.changeControlMode(TalonControlMode.Follower);
-		rightTop.set(rightFront.getDeviceID());	
+		rightTop.set(rightFront.getDeviceID());
 		
 		Robot.chassis.rightFront.configEncoderCodesPerRev(120);
 		Robot.chassis.leftFront.configEncoderCodesPerRev(120);
+		
+		rightFront.setEncPosition(0);
+		leftFront.setEncPosition(0);
 	}
 	 
 
@@ -47,6 +53,16 @@ public class Chassis extends Subsystem {
 	public final AHRS ahrs = new AHRS(SPI.Port.kMXP);
 	public final Encoder leftEnc = new Encoder(RobotMap.LEFT_DRIVE_ENCA, RobotMap.LEFT_DRIVE_ENCB);
 	public final Encoder rightEnc = new Encoder(RobotMap.RIGHT_DRIVE_ENCA, RobotMap.RIGHT_DRIVE_ENCB);
+	
+	
+//Variables
+	public boolean timerStart = false;
+	public boolean atTarget = false;
+	final double GYRO_P = (0.0196);
+	
+	
+//TIMER
+	public Timer timer = new Timer();	
 	
 //Drive Methods	
 	public void setSpeed(double left, double right){
@@ -60,7 +76,7 @@ public class Chassis extends Subsystem {
     	double left = Robot.oi.getDriverLeftStick();
     	double right = Robot.oi.getDriverRightStick();
     	
-    	setSpeed(-left, right);
+    	setSpeed(left, right);
     }
 	
 	public void stopAllDrive(){
@@ -72,12 +88,136 @@ public class Chassis extends Subsystem {
     	setDefaultCommand(new DriveWithJoysticks());
     }
     
+    public double headingCorrection (double heading){
+    	double driftError = heading - getAngle();
+    	
+    	if (driftError < -180){
+    		driftError = driftError + 360;
+    	}
+    	else if (driftError > 180){
+    		driftError = driftError - 360;
+    	}
+    	
+    	
+    	return ((GYRO_P)*driftError);
+    	//setSpeed(((GYRO_P)*driftError), -((GYRO_P)*driftError));
+    	
+    }
+    
+    public double turnAngleAdditional(double target){
+    	double speed;
+
+    	speed = headingCorrection(target);
+    	
+    	if (speed > .7){
+    		speed = .7;
+    	}
+    	if(speed < -.7){ 
+    		speed = -.7;
+    	}
+    	
+    	if (speed < .13 && speed > 0){//real robot is .25 everywhere
+    		speed = .13;
+    	}
+    	if(speed > -.13 && speed < 0){ 
+    		speed = -.13;
+    	}
+    	
+    	return speed;
+    	//setTurnSpeed(speed);
+    }
+    
+    public void setTurnSpeed(double speed){
+    	setSpeed(speed, -speed);
+    }
+    
+//Logic Methods
+
+    public boolean isAtTurnTarget(double target){
+    	atTarget = false;
+    	
+    	double error = target - getAngle();
+    	
+    	if (error < -180){
+    		error = error + 360;
+    	}
+    	else if (error > 180){
+    		error = error - 360;
+    	}
+
+    	if ((error < 5) && (error > -5)){
+    		if(timerStart == false){
+   				timerStart = true;
+   				timer.start();
+   			}
+    		
+   		}
+   	
+   		else{
+   		
+   			if(timerStart == true){
+    			timer.stop();
+    			timer.reset();
+    			timerStart = false;
+   			}
+   		}
+    	
+   		if(timer.get() >.25){
+   			atTarget = true;
+    	}
+    	
+    	return atTarget;
+    	
+    }
+    
+    public boolean isAtDistanceTarget(double target){
+    	atTarget = false;
+    	
+    	double error = target - rightFront.getPosition();
+
+    	if ((error < 0.5) && (error > -0.5)){
+    		if(timerStart == false){
+   				timerStart = true;
+   				timer.start();
+   			}
+    		
+   		}
+   	
+   		else{
+   		
+   			if(timerStart == true){
+    			timer.stop();
+    			timer.reset();
+    			timerStart = false;
+   			}
+   		}
+    	
+   		if(timer.get() >0.25){
+   			atTarget = true;
+    	}
+    	
+    	return atTarget;
+    	
+    }
+
+    
 //Sensor Methods
     public void resetDriveEncoders() {
     	leftEnc.reset();
     	rightEnc.reset();
     }
     
+    public double getAngle(){
+    	return ahrs.getAngle();
+    }
+    
+    public double getPitch(){
+    	return ahrs.getPitch();//just look at all the different gets, figure out what is going on
+    }
+    
+    public double getRoll(){
+    	return ahrs.getRoll();//just look at all the different gets, figure out what is going on
+    }
     
     
 }

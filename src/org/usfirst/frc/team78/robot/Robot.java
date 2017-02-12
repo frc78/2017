@@ -8,6 +8,7 @@ import org.usfirst.frc.team78.robot.subsystems.Shooter;
 import org.usfirst.frc.team78.robot.subsystems.Vision;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -29,6 +30,7 @@ public class Robot extends IterativeRobot {
 	public static final Shooter shooter = new Shooter();
 	public static final Intake intake = new Intake();
 	public static OI oi;
+	public static Solenoid test = new Solenoid(1);
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -48,6 +50,11 @@ public class Robot extends IterativeRobot {
 		chooser.addDefault("Default: Do Nothing", new AUTO_doNothing());
 		//chooser.addObject("Auto", new Auto());
 		
+		//Shooter init stuff
+		shooter.shooterMotorInit();
+		shooter.shooterLeft.setPosition(0);
+		
+		//Chassis init stuff
 		chassis.motorInit();
 		chassis.rightFront.setPosition(0);
 		chassis.leftFront.setPosition(0);
@@ -124,6 +131,14 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putNumber("left motor '.get' ", chassis.leftFront.getPosition());
 		SmartDashboard.putNumber("right motor '.get' ", chassis.rightFront.getPosition());
+		
+		double pos = chassis.rightFront.getPosition();
+		
+		double ft = (pos* (3.5 * Math.PI))/12;
+		
+		SmartDashboard.putNumber("encoder", ft);
+		
+		SmartDashboard.putNumber("nav-X", Robot.chassis.getAngle());
 		
 		Scheduler.getInstance().run();
 	}

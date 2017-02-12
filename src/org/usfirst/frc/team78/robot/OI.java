@@ -1,7 +1,8 @@
 package org.usfirst.frc.team78.robot;
 
-import org.usfirst.frc.team78.robot.commands.cantalonPosTest;
+import org.usfirst.frc.team78.robot.commands.driveStraight;
 import org.usfirst.frc.team78.robot.commands.intake;
+import org.usfirst.frc.team78.robot.commands.turn;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -27,9 +28,9 @@ public static Joystick driverStick;
 	public Button btn8;
 	public Button leftStickBtn11;
 	public Button rightStickBtn12;
-	
+	 
 	public OI(){
-		driverStick = new Joystick(0);
+		driverStick = new Joystick(0); 
 		
 		btn5 = new JoystickButton(driverStick, 5);
 		btn5.whileHeld(new intake("in", 0.65));
@@ -40,7 +41,10 @@ public static Joystick driverStick;
 		}
 		
 		btn1 = new JoystickButton(driverStick, 1);
-		btn1.whenPressed(new cantalonPosTest(5));
+		btn1.whileHeld(new driveStraight(-9));
+		
+		btn2 = new JoystickButton(driverStick, 2);
+		btn2.whenPressed(new turn(90));
 	}
 	
 	

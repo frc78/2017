@@ -26,7 +26,7 @@ public class AUTO_driveFor5 extends CommandGroup {
         // arm.
     	
     	//Drives 5 feet (unrelated to 5 in drive for 5)
-    	addSequential(new cantalonPosTest(5));
+    	addSequential(new driveStraight(5));
     	
     }
 }
