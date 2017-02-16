@@ -9,6 +9,8 @@ package org.usfirst.frc.team78.robot;
 
 public class RobotMap {
 	
+	//Set for fall 2016 practice chassis 2-6-17
+	
 	//Motors
 		//Left Drive 
 		public static final int LEFT_FRONT = 3;  
@@ -20,11 +22,11 @@ public class RobotMap {
 		public static final int RIGHT_TOP = 5;
 		
 		//Shooter
-		public static final int SHOOTER_LEFT = 7;
-		public static final int SHOOTER_RIGHT = 8;
+		public static final int SHOOTER_LEFT = 0;
+		public static final int SHOOTER_RIGHT = 1;
 		
 		//Intake
-		public static final int INTAKE_MOTOR = 9;
+		public static final int INTAKE_MOTOR = 3;
 		
 	//Sensors
 		//Shooter

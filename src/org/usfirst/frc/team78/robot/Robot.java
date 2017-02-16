@@ -6,6 +6,7 @@ import org.usfirst.frc.team78.robot.subsystems.Shooter;
 import org.usfirst.frc.team78.robot.subsystems.Vision;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -25,6 +26,7 @@ public class Robot extends IterativeRobot {
 	public static final Chassis chassis = new Chassis();
 	public static final Vision vision = new Vision();
 	public static final Shooter shooter = new Shooter();
+
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -37,9 +39,13 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		
+		Solenoid exampleSolenoid = new Solenoid(1);
+		
 //		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		shooter.PIDShooterInit();
 	}
 
 	/**
@@ -107,6 +113,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("Shooter Encoder", shooter.getShooterRPM());
+		SmartDashboard.putNumber("Set Shooter RPM", 0.0);
 		Scheduler.getInstance().run();
 	}
 

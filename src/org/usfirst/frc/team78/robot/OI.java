@@ -1,8 +1,11 @@
 package org.usfirst.frc.team78.robot;
 
+import org.usfirst.frc.team78.robot.commands.PIDShoot;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -28,7 +31,10 @@ public static Joystick driverStick;
 	public OI(){
 		driverStick = new Joystick(0);
 		
-		}
+		btn5 = new JoystickButton(driverStick, 5);
+		btn5.whileHeld(new PIDShoot(SmartDashboard.getNumber("Set Shooter RPM", 0.0)));
+		
+	}
 	
 	
 	
