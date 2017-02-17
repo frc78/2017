@@ -10,5 +10,6 @@
 	<classpathentry kind="var" path="navx-mxp/"/>
 	<classpathentry kind="lib" path="C:/Users/jr/wpilib/user/java/lib/CTRLib.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
