@@ -29,6 +29,7 @@ public class shooterPosTest extends Command {
     	Robot.shooter.shooterLeft.setP(0.5);
     	Robot.shooter.shooterLeft.setI(0);
     	Robot.shooter.shooterLeft.setD(0);
+    	Robot.shooter.shooterLeft.setF(0);
     	
     	Robot.shooter.shooterLeft.enableControl();
 

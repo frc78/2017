@@ -1,47 +1,32 @@
 package org.usfirst.frc.team78.robot.commands;
 
 import org.usfirst.frc.team78.robot.Robot;
-import org.usfirst.frc.team78.robot.subsystems.Vision;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class shooterPixy extends Command {
+public class switchFronts extends Command {
 
-	double speed;
-	double scale = 0.005;
-	double output;
-	
-    public shooterPixy() {
+    public switchFronts() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.chassis);
-    	requires(Robot.vision);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.chassis.switchFronts = !Robot.chassis.switchFronts;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
-    	if(Vision.shooterXPos > 165){
-    		speed = (Vision.shooterXPos - 165) * scale;
-    		Robot.chassis.setSpeed(-speed, -speed);
-    	}else if(Vision.shooterXPos < 155){
-    		speed = (155 - Vision.shooterXPos) * scale;
-    		Robot.chassis.setSpeed(speed, speed);
-    	}else{
-    		Robot.chassis.stopAllDrive();
-    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.vision.isAtVisionTarget(160, Vision.gearXPos);
+        return false;
     }
 
     // Called once after isFinished returns true

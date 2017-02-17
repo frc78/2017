@@ -26,6 +26,9 @@ public class RobotMap {
 		//Intake
 		public static final int INTAKE_MOTOR = 7;
 		
+		//Gars
+		public static final int GEAR_INTAKE_MOTOR = 100;  //NEED REAL VALUE HERE PLS
+		
 	//Sensors
 		//Shooter
 		public static final int SHOOTER_ENCA = 0;

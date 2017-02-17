@@ -7,26 +7,21 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class driveStraightDistance extends Command {
+public class gearIntake extends Command {
 	
-	//Conversion
-	double clicks_per_rotation = 120;
-	double wheel_diameter_feet = 3.5 / 12;
-	double clicks_per_foot = clicks_per_rotation / (wheel_diameter_feet * Math.PI);
-	
-	//Variables
-	double desiredDistanceClicks;
-	
-    public driveStraightDistance(double desiredDistanceFeet) {
+	String direction;
+	double speed;
+
+    public gearIntake(String Direction, double Speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.chassis);
-    	desiredDistanceClicks = desiredDistanceFeet * clicks_per_foot;
+    	requires(Robot.gear);
+    	direction = Direction;
+    	speed = Speed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.chassis.resetDriveEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -40,6 +35,7 @@ public class driveStraightDistance extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	
     }
 
     // Called when another command which requires one or more of the same

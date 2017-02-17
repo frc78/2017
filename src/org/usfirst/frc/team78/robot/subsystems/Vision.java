@@ -1,6 +1,7 @@
 package org.usfirst.frc.team78.robot.subsystems;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,11 +21,51 @@ public class Vision extends Subsystem {
 			public static char gearXPos;
 			public static char gearYPos;
 			
+	//Variables
+			public boolean timerStart = false;
+			public boolean atTarget = false;	
+			
+	//TIMER
+			public Timer timer = new Timer();		
+			
+			
 	    public void initDefaultCommand() {
 	        // Set the default command for a subsystem here.
 	        //setDefaultCommand(new MySpecialCommand());
 	    	//setDefaultCommand();
 	    }
+	    
+	    public boolean isAtVisionTarget(double target, double xPos){
+	    	atTarget = false;
+	    	
+	    	double error = target - xPos;
+
+	    	if ((error < 10) && (error > -10)){
+	    		if(timerStart == false){
+	   				timerStart = true;
+	   				timer.start();
+	   			}
+	    		
+	   		}
+	   	
+	   		else{
+	   		
+	   			if(timerStart == true){
+	    			timer.stop();
+	    			timer.reset();
+	    			timerStart = false;
+	   			}
+	   		}
+	    	
+	   		if(timer.get() >0.25){
+	   			atTarget = true;
+	    	}
+	    	
+	    	return atTarget;
+	    	
+	    }
+	    
+	    
 	   
 	    public static void shooterPixy(){
 	    	byte[] pixyValues = new byte[64];

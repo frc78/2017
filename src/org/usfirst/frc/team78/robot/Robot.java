@@ -2,7 +2,10 @@
 package org.usfirst.frc.team78.robot;
 
 import org.usfirst.frc.team78.robot.commands.AUTO_doNothing;
+import org.usfirst.frc.team78.robot.commands.AUTO_driveFor5;
+import org.usfirst.frc.team78.robot.commands.gearIntake;
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
+import org.usfirst.frc.team78.robot.subsystems.Gear;
 import org.usfirst.frc.team78.robot.subsystems.Intake;
 import org.usfirst.frc.team78.robot.subsystems.Shooter;
 import org.usfirst.frc.team78.robot.subsystems.Vision;
@@ -14,6 +17,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team78.robot.commands.intake;
 
 
 /**
@@ -29,6 +34,7 @@ public class Robot extends IterativeRobot {
 	public static final Vision vision = new Vision();
 	public static final Shooter shooter = new Shooter();
 	public static final Intake intake = new Intake();
+	public static final Gear gear = new Gear();
 	public static OI oi;
 	public static Solenoid test = new Solenoid(1);
 
@@ -44,11 +50,14 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 //		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
+		chooser = new SendableChooser();
+		chooser.addDefault("Default: Do Nothing", new AUTO_doNothing());
+		chooser.addObject("Drive For 5", new AUTO_driveFor5());
 		SmartDashboard.putData("Auto mode", chooser);
 		
 		//AUTOS
 		chooser.addDefault("Default: Do Nothing", new AUTO_doNothing());
-		//chooser.addObject("Auto", new Auto());
+		chooser.addObject("Drive For 5", new AUTO_driveFor5());
 		
 		//Shooter init stuff
 		shooter.shooterMotorInit();
@@ -73,6 +82,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Y axis", oi.getManipulatorLeftStick());
 	}
 
 	/**
@@ -126,8 +136,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		
-		
 		
 		SmartDashboard.putNumber("left motor '.get' ", chassis.leftFront.getPosition());
 		SmartDashboard.putNumber("right motor '.get' ", chassis.rightFront.getPosition());

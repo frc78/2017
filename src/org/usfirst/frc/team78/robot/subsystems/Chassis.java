@@ -60,6 +60,8 @@ public class Chassis extends Subsystem {
 	public boolean atTarget = false;
 	final double GYRO_P = (0.0196);
 	
+	public boolean switchFronts = false;
+	
 	
 //TIMER
 	public Timer timer = new Timer();	
@@ -71,11 +73,13 @@ public class Chassis extends Subsystem {
     	//other motors are set from the CANtalon following mode 
     }
 	
-	public void driveWithJoysticks(){
-    	
-    	double left = Robot.oi.getDriverLeftStick();
-    	double right = Robot.oi.getDriverRightStick();
-    	
+	public void driveWithJoysticks(double maxDrive) {
+    	double left = maxDrive * Robot.oi.getDriverLeftStick();
+    	double right = maxDrive * Robot.oi.getDriverRightStick();
+    	if(switchFronts) {
+    		left = -1 * maxDrive * Robot.oi.getDriverLeftStick();
+    		right = -1 * maxDrive * Robot.oi.getDriverRightStick(); 
+    	}
     	setSpeed(left, right);
     }
 	

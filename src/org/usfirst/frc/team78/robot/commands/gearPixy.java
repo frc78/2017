@@ -41,7 +41,7 @@ public class gearPixy extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+       return Robot.vision.isAtVisionTarget(160, Vision.gearXPos); // 160 ~ center of pixy screen
     }
 
     // Called once after isFinished returns true
