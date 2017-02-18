@@ -6,6 +6,7 @@ import org.usfirst.frc.team78.robot.RobotMap;
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -15,6 +16,7 @@ public class Intake extends Subsystem {
 
 	//Motors
 	CANTalon intakeMotor = new CANTalon(RobotMap.INTAKE_MOTOR);
+	DoubleSolenoid intakeSolenoid = new DoubleSolenoid(RobotMap.INTAKE_SOLENOID1,RobotMap.INTAKE_SOLENOID2);
 	 
 	//Sensors
 	//public final Encoder intakeEnc = new Encoder(RobotMap.INTAKE_ENCA, RobotMap.INTAKE_ENCB);
@@ -32,6 +34,14 @@ public class Intake extends Subsystem {
 	
 	public void stopMotor(){
 		intakeMotor.set(0);
+	}
+	
+	public void downIntake(){
+		intakeSolenoid.set(DoubleSolenoid.Value.kForward);
+	}
+	
+	public void upIntake(){
+		intakeSolenoid.set(DoubleSolenoid.Value.kReverse);
 	}
 	
     public void initDefaultCommand() {

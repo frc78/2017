@@ -36,7 +36,6 @@ public class Robot extends IterativeRobot {
 	public static final Intake intake = new Intake();
 	public static final Gear gear = new Gear();
 	public static OI oi;
-	public static Solenoid test = new Solenoid(1);
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -67,6 +66,8 @@ public class Robot extends IterativeRobot {
 		chassis.motorInit();
 		chassis.rightFront.setPosition(0);
 		chassis.leftFront.setPosition(0);
+		
+		gear.gearInit();
 	}
 
 	/**

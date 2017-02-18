@@ -10,6 +10,7 @@ import org.usfirst.frc.team78.robot.commands.slowDriveWithJoysticks;
 import org.usfirst.frc.team78.robot.commands.switchFronts;
 import org.usfirst.frc.team78.robot.commands.turboDriveWithJoysticks;
 import org.usfirst.frc.team78.robot.commands.turn;
+import org.usfirst.frc.team78.robot.commands.gearUpDown;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -79,15 +80,17 @@ public class OI {
 		driverLT.whileHeld(new turboDriveWithJoysticks());
 		driverStart.whenPressed(new switchFronts());
 		
-		//GEAR BUTTONS
+		//GEAR INTAKE BUTTONS
 		manipulatorLB.whileHeld(new gearIntake("out", 0.65));
 		if(manipulatorLT()) new gearIntake("in", 0.78);
+		//GEAR ARM Buttons
+		manipulatorB.whileHeld(new gearUpDown());
 		
 		
 		//CLIBMER BOTONS
 		
 		
-		//FÜL BUTNZ
+		//FUL BUTNZ
 		if(manipulatorRT()) {
 			new shooterPosTest();
 		}

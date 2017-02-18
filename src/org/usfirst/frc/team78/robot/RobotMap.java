@@ -25,9 +25,13 @@ public class RobotMap {
 		
 		//Intake
 		public static final int INTAKE_MOTOR = 7;
+		public static final int INTAKE_SOLENOID1 = 1;
+		public static final int INTAKE_SOLENOID2 = 2;
 		
-		//Gars
+		//Gears
 		public static final int GEAR_INTAKE_MOTOR = 100;  //NEED REAL VALUE HERE PLS
+		public static final int GEAR_SOLENOID1 = 3;
+		public static final int GEAR_SOLENOID2 = 4;
 		
 	//Sensors
 		//Shooter
