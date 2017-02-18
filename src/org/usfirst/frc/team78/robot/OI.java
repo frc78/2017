@@ -71,15 +71,15 @@ public class OI {
 		manipulatorRB = new JoystickButton(manipulatorStick, 6);
 		
 		//VISION BUTTONS
-		driverY.whileHeld(new shooterPixy());
-		driverA.whileHeld(new gearPixy());
+//		driverY.whileHeld(new shooterPixy());
+//		driverA.whileHeld(new gearPixy());
 		
 		//DRIVING BUTTONS
 		driverLB.whileHeld(new slowDriveWithJoysticks());
 		driverLT.whileHeld(new turboDriveWithJoysticks());
 		driverStart.whenPressed(new switchFronts());
 		
-		//GAR BUTTONS
+		//GEAR BUTTONS
 		manipulatorLB.whileHeld(new gearIntake("out", 0.65));
 		if(manipulatorLT()) new gearIntake("in", 0.78);
 		

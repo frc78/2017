@@ -56,8 +56,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto mode", chooser);
 		
 		//AUTOS
-		chooser.addDefault("Default: Do Nothing", new AUTO_doNothing());
-		chooser.addObject("Drive For 5", new AUTO_driveFor5());
+//		chooser.addDefault("Default: Do Nothing", new AUTO_doNothing());
+//		chooser.addObject("Drive For 5", new AUTO_driveFor5());
 		
 		//Shooter init stuff
 		shooter.shooterMotorInit();
@@ -82,7 +82,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Y axis", oi.getManipulatorLeftStick());
+//		SmartDashboard.putNumber("Y axis", oi.getManipulatorLeftStick());
 	}
 
 	/**
@@ -137,16 +137,13 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		
-		SmartDashboard.putNumber("left motor '.get' ", chassis.leftFront.getPosition());
-		SmartDashboard.putNumber("right motor '.get' ", chassis.rightFront.getPosition());
+//		SmartDashboard.putNumber("left motor '.get' ", chassis.leftFront.getPosition());
+//		SmartDashboard.putNumber("right motor '.get' ", chassis.rightFront.getPosition());
 		
-		double pos = chassis.rightFront.getPosition();
 		
-		double ft = (pos* (3.5 * Math.PI))/12;
+//		SmartDashboard.putNumber("encoder", ft);
 		
-		SmartDashboard.putNumber("encoder", ft);
-		
-		SmartDashboard.putNumber("nav-X", Robot.chassis.getAngle());
+//		SmartDashboard.putNumber("nav-X", Robot.chassis.getAngle());
 		
 		Scheduler.getInstance().run();
 	}
