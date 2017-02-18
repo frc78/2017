@@ -24,10 +24,14 @@ public class RobotMap {
 		public static final int SHOOTER_RIGHT = 9;
 		
 		//Intake
-		public static final int INTAKE_MOTOR = 7;
+		public static final int INTAKE_MOTOR = 7;//7 
 		
-		//Gars
-		public static final int GEAR_INTAKE_MOTOR = 100;  //NEED REAL VALUE HERE PLS
+		//Gears
+		public static final int GEAR_INTAKE_MOTOR = 10;  //NEED REAL VALUE HERE PLS
+		
+		//CLIMBER
+		public static final int CLIMBER_LEFT = 15;
+		public static final int CLIMBER_RIGHT = 12;
 		
 	//Sensors
 		//Shooter
