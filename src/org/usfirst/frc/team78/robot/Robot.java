@@ -5,10 +5,12 @@ import org.usfirst.frc.team78.robot.commands.AUTO_doNothing;
 import org.usfirst.frc.team78.robot.commands.AUTO_driveFor5;
 import org.usfirst.frc.team78.robot.commands.gearIntake;
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
+import org.usfirst.frc.team78.robot.subsystems.Climber;
 import org.usfirst.frc.team78.robot.subsystems.Gear;
 import org.usfirst.frc.team78.robot.subsystems.Intake;
 import org.usfirst.frc.team78.robot.subsystems.Shooter;
 import org.usfirst.frc.team78.robot.subsystems.Vision;
+import org.usfirst.frc.team78.robot.subsystems.Climber;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -35,6 +37,7 @@ public class Robot extends IterativeRobot {
 	public static final Shooter shooter = new Shooter();
 	public static final Intake intake = new Intake();
 	public static final Gear gear = new Gear();
+	public static final Climber climber = new Climber();
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -68,6 +71,9 @@ public class Robot extends IterativeRobot {
 		chassis.leftFront.setPosition(0);
 		
 		gear.gearInit();
+		
+		//climber init
+		climber.climberInit();
 	}
 
 	/**
@@ -130,6 +136,7 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		chassis.motorInit();
+		climber.climberInit();
 	}
 
 	/**

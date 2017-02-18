@@ -29,9 +29,13 @@ public class RobotMap {
 		public static final int INTAKE_SOLENOID2 = 2;
 		
 		//Gears
-		public static final int GEAR_INTAKE_MOTOR = 100;  //NEED REAL VALUE HERE PLS
+		public static final int GEAR_INTAKE_MOTOR = 10;  //NEED REAL VALUE HERE PLS
 		public static final int GEAR_SOLENOID1 = 3;
 		public static final int GEAR_SOLENOID2 = 4;
+		
+		//CLIMBER
+		public static final int CLIMBER_LEFT = 15;
+		public static final int CLIMBER_RIGHT = 12;
 		
 	//Sensors
 		//Shooter

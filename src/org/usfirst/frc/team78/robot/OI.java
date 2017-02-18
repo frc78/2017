@@ -1,5 +1,6 @@
 package org.usfirst.frc.team78.robot;
 
+import org.usfirst.frc.team78.robot.commands.climb;
 import org.usfirst.frc.team78.robot.commands.driveStraight;
 import org.usfirst.frc.team78.robot.commands.gearIntake;
 import org.usfirst.frc.team78.robot.commands.gearPixy;
@@ -87,8 +88,17 @@ public class OI {
 		manipulatorB.whileHeld(new gearUpDown());
 		
 		
-		//CLIBMER BOTONS
+		//CLIBMER BUTTONS
+		//manipulatorA.whileHeld(new climb(0.15));
 		
+		double climberSpeed = 0.15;
+		if(manipulatorA.get()){
+			if(manipulatorX.get()){
+				//climberSpeed += 0.3;
+				new climb(climberSpeed);
+			}
+			new climb(climberSpeed);
+		}
 		
 		//FUL BUTNZ
 		if(manipulatorRT()) {
@@ -99,11 +109,11 @@ public class OI {
 		else if(getManipulatorLeftStick() < 0) new intake("out", 0.78);
 		
 		
-		//driverLB.whileHeld(new intake("in", 0.65));
+		driverLB.whileHeld(new intake("in", 0.65));
 		
-//		if(!driverLB.get()){
-//			driverRB.whileHeld(new intake("out", 0.65));
-//		}
+		if(!driverLB.get()){
+			driverRB.whileHeld(new intake("out", 0.65));
+		}
 		
 		driverX.whileHeld(new driveStraight(-9));
 		
@@ -111,7 +121,7 @@ public class OI {
 		driverA.whenPressed(new turn(90));
 	}
 	
-	//sticks and *TRIGGERED*s
+	//sticks and TRIGGERs
 	public double getManipulatorLeftStick() {
 		double stick = manipulatorStick.getY();
 		if(Math.abs(stick) < STICK_DEADZONE) return 0;
