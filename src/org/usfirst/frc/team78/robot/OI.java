@@ -1,16 +1,10 @@
 package org.usfirst.frc.team78.robot;
 
-import org.usfirst.frc.team78.robot.commands.driveStraight;
+import org.usfirst.frc.team78.robot.commands.climb;
 import org.usfirst.frc.team78.robot.commands.gearIntake;
-import org.usfirst.frc.team78.robot.commands.gearPixy;
-import org.usfirst.frc.team78.robot.commands.intake;
-import org.usfirst.frc.team78.robot.commands.shooterPixy;
-import org.usfirst.frc.team78.robot.commands.shooterPosTest;
-import org.usfirst.frc.team78.robot.commands.slowDriveWithJoysticks;
-import org.usfirst.frc.team78.robot.commands.switchFronts;
-import org.usfirst.frc.team78.robot.commands.turboDriveWithJoysticks;
-import org.usfirst.frc.team78.robot.commands.turn;
-
+import org.usfirst.frc.team78.robot.commands.gearUp;
+import org.usfirst.frc.team78.robot.commands.stopClimber;
+import org.usfirst.frc.team78.robot.commands.gearDown;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -75,40 +69,25 @@ public class OI {
 //		driverA.whileHeld(new gearPixy());
 		
 		//DRIVING BUTTONS
-		driverLB.whileHeld(new slowDriveWithJoysticks());
-		driverLT.whileHeld(new turboDriveWithJoysticks());
-		driverStart.whenPressed(new switchFronts());
+		
 		
 		//GEAR BUTTONS
 		manipulatorLB.whileHeld(new gearIntake("out", 0.65));
-		if(manipulatorLT()) new gearIntake("in", 0.78);
+		manipulatorRB.whileHeld(new gearIntake("in", 0.78));
+		
+		manipulatorB.whileHeld(new gearDown());
+		manipulatorB.whenReleased(new gearUp());
 		
 		
-		//CLIBMER BOTONS
+		//CLIBMER BUTTONS		
+		manipulatorA.whileHeld(new climb(0.4));
+		manipulatorA.whenReleased(new stopClimber());
+		manipulatorX.whileHeld(new climb(1));
+		manipulatorX.whenReleased(new stopClimber());
 		
-		
-		//FÜL BUTNZ
-		if(manipulatorRT()) {
-			new shooterPosTest();
-		}
-		
-		if(getManipulatorLeftStick() > 0) new intake("in", 0.78);
-		else if(getManipulatorLeftStick() < 0) new intake("out", 0.78);
-		
-		
-		//driverLB.whileHeld(new intake("in", 0.65));
-		
-//		if(!driverLB.get()){
-//			driverRB.whileHeld(new intake("out", 0.65));
-//		}
-		
-		driverX.whileHeld(new driveStraight(-9));
-		
-		driverA = new JoystickButton(driverStick, 2);
-		driverA.whenPressed(new turn(90));
 	}
 	
-	//sticks and *TRIGGERED*s
+	//STICKS AND TRIGGER SETUP	
 	public double getManipulatorLeftStick() {
 		double stick = manipulatorStick.getY();
 		if(Math.abs(stick) < STICK_DEADZONE) return 0;
@@ -146,12 +125,6 @@ public class OI {
 	}
 }
 
-/* CAPTAIN'S LOG 20:34:47 FEB 16 2017 B-80
- * As build season draws to a close, we work desperately to finalize designs for our shooter, tank, and gear manipulator.
- * Mechanical is growing restless and frustrated with our slow progress, stressed by the looming deadline that is bag day.
- * Food grows scarce.  The build season has been long and hard, and as it draws to a close the outcome is unclear.  Will
- * we survive?  Week 0 is coming quickly.  We must be prepared or else all hope is lost.  Kamen help us...
- */
 
 
 

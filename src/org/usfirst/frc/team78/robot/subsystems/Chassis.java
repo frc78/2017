@@ -50,6 +50,9 @@ public class Chassis extends Subsystem {
 	 
 
 //Sensors	
+	
+	// The encoders aren't used here, they are programmed with the talons
+	
 	public final AHRS ahrs = new AHRS(SPI.Port.kMXP);
 	public final Encoder leftEnc = new Encoder(RobotMap.LEFT_DRIVE_ENCA, RobotMap.LEFT_DRIVE_ENCB);
 	public final Encoder rightEnc = new Encoder(RobotMap.RIGHT_DRIVE_ENCA, RobotMap.RIGHT_DRIVE_ENCB);
@@ -58,40 +61,54 @@ public class Chassis extends Subsystem {
 //Variables
 	public boolean timerStart = false;
 	public boolean atTarget = false;
-	final double GYRO_P = (0.0196);
-	
-	public boolean switchFronts = false;
-	
+	final double GYRO_P = (0.0196);	
 	
 //TIMER
 	public Timer timer = new Timer();	
 	
 //Drive Methods	
 	public void setSpeed(double left, double right){
-    	leftFront.set(-left);
-    	rightFront.set(right);
-    	//other motors are set from the CANtalon following mode 
+		//other motors are set from the CANtalon following mode 
+		
+		// leading with intake
+//    	leftFront.set(-left);
+//    	rightFront.set(right);
+		
+		
+		//leading with gear
+		leftFront.set(right);
+    	rightFront.set(-left);
+		
     }
 	
 	public void driveWithJoysticks(double maxDrive) {
-    	double left = maxDrive * Robot.oi.getDriverLeftStick();
-    	double right = maxDrive * Robot.oi.getDriverRightStick();
-    	if(switchFronts) {
-    		left = -1 * maxDrive * Robot.oi.getDriverLeftStick();
-    		right = -1 * maxDrive * Robot.oi.getDriverRightStick(); 
+    	double left = Robot.oi.getDriverLeftStick();
+    	double right = Robot.oi.getDriverRightStick();
+
+    	if(Robot.oi.driverStick.getRawButton(5) && Robot.oi.driverStick.getRawButton(6)){
+    		left *= 0.3;
+    		right *= 0.3;
     	}
+    	
     	setSpeed(left, right);
     }
+	
+	public void setTurnSpeed(double speed){
+	    	setSpeed(speed, -speed);
+	}
 	
 	public void stopAllDrive(){
     	setSpeed(0,0);
     }
+//end drive methods
+	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(new DriveWithJoysticks());
     }
     
+//Logic Methods
     public double headingCorrection (double heading){
     	double driftError = heading - getAngle();
     	
@@ -104,8 +121,7 @@ public class Chassis extends Subsystem {
     	
     	
     	return ((GYRO_P)*driftError);
-    	//setSpeed(((GYRO_P)*driftError), -((GYRO_P)*driftError));
-    	
+    	//setSpeed(((GYRO_P)*driftError), -((GYRO_P)*driftError));    	
     }
     
     public double turnAngleAdditional(double target){
@@ -129,13 +145,7 @@ public class Chassis extends Subsystem {
     	
     	return speed;
     	//setTurnSpeed(speed);
-    }
-    
-    public void setTurnSpeed(double speed){
-    	setSpeed(speed, -speed);
-    }
-    
-//Logic Methods
+    }   
 
     public boolean isAtTurnTarget(double target){
     	atTarget = false;
@@ -203,7 +213,7 @@ public class Chassis extends Subsystem {
     	return atTarget;
     	
     }
-
+//end logic methods
     
 //Sensor Methods
     public void resetDriveEncoders() {

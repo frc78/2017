@@ -81,6 +81,8 @@ public class driveStraight extends Command {
     protected void end() {
     	Robot.chassis.leftFront.changeControlMode(TalonControlMode.PercentVbus);
     	Robot.chassis.rightFront.changeControlMode(TalonControlMode.PercentVbus);
+    	Robot.chassis.leftFront.set(0);
+    	Robot.chassis.rightFront.set(0);
     	Robot.chassis.stopAllDrive();
     }
 

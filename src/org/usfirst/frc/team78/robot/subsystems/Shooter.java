@@ -24,6 +24,7 @@ public class Shooter extends Subsystem {
 	}
 	
 	//Sensors
+	//this encoder may get plugged into the talon
 	public final Encoder shooterEnc = new Encoder(RobotMap.SHOOTER_ENCA, RobotMap.SHOOTER_ENCB, true, EncodingType.k4X);
 
 	
