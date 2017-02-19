@@ -15,7 +15,7 @@ public class Vision extends Subsystem {
     // here. Call these from Commands.
 	//I2C DEVICES
 			public static I2C shooterPixy = new I2C(Port.kOnboard, 0x54);
-			public static I2C gearPixy = new I2C(Port.kMXP, 0x55);
+			public static I2C gearPixy = new I2C(Port.kMXP, 0x55);	//  *using pi and network tables*
 			public static char shooterXPos;
 			public static char shooterYPos;
 			public static char gearXPos;

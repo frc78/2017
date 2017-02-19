@@ -51,25 +51,23 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 //		chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
+//		chooser.addObject("My Auto", new MyAutoCommand());
 		chooser = new SendableChooser();
-		chooser.addDefault("Default: Do Nothing", new AUTO_doNothing());
-		chooser.addObject("Drive For 5", new AUTO_driveFor5());
+		chooser.addDefault("Default: Drive for 5", new AUTO_driveFor5());
+		chooser.addObject("Do nothing", new AUTO_doNothing());
 		SmartDashboard.putData("Auto mode", chooser);
 		
-		//AUTOS
-//		chooser.addDefault("Default: Do Nothing", new AUTO_doNothing());
-//		chooser.addObject("Drive For 5", new AUTO_driveFor5());
-		
-		//Shooter init stuff
+				
+		//Shooter init 
 		shooter.shooterMotorInit();
 		shooter.shooterLeft.setPosition(0);
 		
-		//Chassis init stuff
+		//Chassis init 
 		chassis.motorInit();
 		chassis.rightFront.setPosition(0);
 		chassis.leftFront.setPosition(0);
 		
+		//Gear init
 		gear.gearInit();
 		
 		//climber init
@@ -89,7 +87,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-//		SmartDashboard.putNumber("Y axis", oi.getManipulatorLeftStick());
 	}
 
 	/**
@@ -135,6 +132,7 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		
 		chassis.motorInit();
 		climber.climberInit();
 	}
@@ -147,8 +145,7 @@ public class Robot extends IterativeRobot {
 		
 //		SmartDashboard.putNumber("left motor '.get' ", chassis.leftFront.getPosition());
 //		SmartDashboard.putNumber("right motor '.get' ", chassis.rightFront.getPosition());
-		
-		
+				
 //		SmartDashboard.putNumber("encoder", ft);
 		
 //		SmartDashboard.putNumber("nav-X", Robot.chassis.getAngle());
