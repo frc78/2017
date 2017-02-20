@@ -21,31 +21,33 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Chassis extends Subsystem {
 
 //Motors
-	public CANTalon leftFront = new CANTalon(RobotMap.LEFT_FRONT);
-		   CANTalon leftRear = new CANTalon(RobotMap.LEFT_REAR);
-	       CANTalon leftTop = new CANTalon(RobotMap.LEFT_TOP);
-	public CANTalon rightFront = new CANTalon(RobotMap.RIGHT_FRONT);
-		   CANTalon rightRear = new CANTalon(RobotMap.RIGHT_REAR);
-		   CANTalon rightTop = new CANTalon(RobotMap.RIGHT_TOP);
+	public CANTalon starboardFront = new CANTalon(RobotMap.STARBOARD_FRONT);
+		   CANTalon starboardRear = new CANTalon(RobotMap.STARBOARD_REAR);
+	       CANTalon starboardTop = new CANTalon(RobotMap.STARBOARD_TOP);
+	public CANTalon portFront = new CANTalon(RobotMap.PORT_FRONT);
+		   CANTalon portRear = new CANTalon(RobotMap.PORT_REAR);
+		   CANTalon portTop = new CANTalon(RobotMap.PORT_TOP);
 	
 	public void motorInit(){
-		leftRear.changeControlMode(TalonControlMode.Follower);
-		leftRear.set(leftFront.getDeviceID());
-		leftTop.changeControlMode(TalonControlMode.Follower);
-		leftTop.set(leftFront.getDeviceID()); 
+		starboardRear.changeControlMode(TalonControlMode.Follower);
+		starboardRear.set(starboardFront.getDeviceID());
+		starboardTop.changeControlMode(TalonControlMode.Follower);
+		starboardTop.set(starboardFront.getDeviceID()); 
 		
-		leftFront.reverseOutput(true);
+		starboardFront.reverseOutput(true);
 		
-		rightRear.changeControlMode(TalonControlMode.Follower);
-		rightRear.set(rightFront.getDeviceID());
-		rightTop.changeControlMode(TalonControlMode.Follower);
-		rightTop.set(rightFront.getDeviceID());
+		portRear.changeControlMode(TalonControlMode.Follower);
+		portRear.set(portFront.getDeviceID());
+		portTop.changeControlMode(TalonControlMode.Follower);
+		portTop.set(portFront.getDeviceID());
 		
-		Robot.chassis.rightFront.configEncoderCodesPerRev(120);
-		Robot.chassis.leftFront.configEncoderCodesPerRev(120);
+		Robot.chassis.portFront.configEncoderCodesPerRev(120);
+		Robot.chassis.starboardFront.configEncoderCodesPerRev(120);
 		
-		rightFront.setEncPosition(0);
-		leftFront.setEncPosition(0);
+		portFront.setEncPosition(0);
+		starboardFront.setEncPosition(0);
+		
+		starboardFront.reverseSensor(true);
 	}
 	 
 
@@ -54,20 +56,20 @@ public class Chassis extends Subsystem {
 	// The encoders aren't used here, they are programmed with the talons
 	
 	public final AHRS ahrs = new AHRS(SPI.Port.kMXP);
-	public final Encoder leftEnc = new Encoder(RobotMap.LEFT_DRIVE_ENCA, RobotMap.LEFT_DRIVE_ENCB);
-	public final Encoder rightEnc = new Encoder(RobotMap.RIGHT_DRIVE_ENCA, RobotMap.RIGHT_DRIVE_ENCB);
+//	public final Encoder leftEnc = new Encoder(RobotMap.LEFT_DRIVE_ENCA, RobotMap.LEFT_DRIVE_ENCB);
+//	public final Encoder rightEnc = new Encoder(RobotMap.RIGHT_DRIVE_ENCA, RobotMap.RIGHT_DRIVE_ENCB);
 	
 	
 //Variables
 	public boolean timerStart = false;
 	public boolean atTarget = false;
-	final double GYRO_P = (0.0196);	
+	final double GYRO_P = (0.019);	
 	
 //TIMER
 	public Timer timer = new Timer();	
 	
 //Drive Methods	
-	public void setSpeed(double left, double right){
+	public void setSpeed(double port, double starboard){
 		//other motors are set from the CANtalon following mode 
 		
 		// leading with intake
@@ -76,21 +78,21 @@ public class Chassis extends Subsystem {
 		
 		
 		//leading with gear
-		leftFront.set(right);
-    	rightFront.set(-left);
+		starboardFront.set(starboard);
+    	portFront.set(-port);
 		
     }
 	
-	public void driveWithJoysticks(double maxDrive) {
-    	double left = Robot.oi.getDriverLeftStick();
-    	double right = Robot.oi.getDriverRightStick();
+	public void driveWithJoysticks() {
+    	double port = Robot.oi.getDriverLeftStick();
+    	double starboard = Robot.oi.getDriverRightStick();
 
     	if(Robot.oi.driverStick.getRawButton(5) && Robot.oi.driverStick.getRawButton(6)){
-    		left *= 0.3;
-    		right *= 0.3;
+    		starboard *= 0.3;
+    		port *= 0.3;
     	}
     	
-    	setSpeed(left, right);
+    	setSpeed(port, starboard);
     }
 	
 	public void setTurnSpeed(double speed){
@@ -187,7 +189,7 @@ public class Chassis extends Subsystem {
     public boolean isAtDistanceTarget(double target){
     	atTarget = false;
     	
-    	double error = target - rightFront.getPosition();
+    	double error = target - portFront.getPosition();
 
     	if ((error < 0.5) && (error > -0.5)){
     		if(timerStart == false){
@@ -217,8 +219,8 @@ public class Chassis extends Subsystem {
     
 //Sensor Methods
     public void resetDriveEncoders() {
-    	leftEnc.reset();
-    	rightEnc.reset();
+//    	leftEnc.reset();
+//    	rightEnc.reset();
     }
     
     public double getAngle(){

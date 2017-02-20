@@ -1,8 +1,11 @@
 
 package org.usfirst.frc.team78.robot;
 
+import org.usfirst.frc.team78.robot.commands.AUTO_boilerGearBlue;
+import org.usfirst.frc.team78.robot.commands.AUTO_boilerGearRed;
 import org.usfirst.frc.team78.robot.commands.AUTO_doNothing;
 import org.usfirst.frc.team78.robot.commands.AUTO_driveFor5;
+import org.usfirst.frc.team78.robot.commands.AUTO_frontGear;
 import org.usfirst.frc.team78.robot.commands.gearIntake;
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
 import org.usfirst.frc.team78.robot.subsystems.Climber;
@@ -47,25 +50,31 @@ public class Robot extends IterativeRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
-	@Override
+	@Override 
 	public void robotInit() {
 		oi = new OI();
 //		chooser.addDefault("Default Auto", new ExampleCommand());
 //		chooser.addObject("My Auto", new MyAutoCommand());
-		chooser = new SendableChooser();
-		chooser.addDefault("Default: Drive for 5", new AUTO_driveFor5());
-		chooser.addObject("Do nothing", new AUTO_doNothing());
+		
+		//UNCOMMENT AUTO MODES
+		
+		chooser = new SendableChooser<>();
+		//chooser.addObject("Drive for 5", new AUTO_driveFor5());
+		//chooser.addObject("Do nothing", new AUTO_doNothing());
+		//chooser.addDefault("Front Gear", new AUTO_frontGear());
+		chooser.addDefault("Boiler Gear Red", new AUTO_boilerGearRed());
+		chooser.addObject("Boiler Gear Blue", new AUTO_boilerGearBlue());
 		SmartDashboard.putData("Auto mode", chooser);
 		
 				
 		//Shooter init 
 		shooter.shooterMotorInit();
-		shooter.shooterLeft.setPosition(0);
+		shooter.shooterPort.setPosition(0);
 		
 		//Chassis init 
 		chassis.motorInit();
-		chassis.rightFront.setPosition(0);
-		chassis.leftFront.setPosition(0);
+		chassis.portFront.setPosition(0);
+		chassis.starboardFront.setPosition(0);
 		
 		//Gear init
 		gear.gearInit();
@@ -121,6 +130,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+
+		SmartDashboard.putNumber("Starboard motor '.get' ", chassis.starboardFront.getPosition());
+		SmartDashboard.putNumber("port motor '.get' ", chassis.portFront.getPosition());
+		SmartDashboard.putNumber("nav-X", Robot.chassis.getAngle());
+		
 		Scheduler.getInstance().run();
 	}
 
@@ -133,6 +147,9 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		
+		SmartDashboard.putNumber("starboard motor '.get' ", chassis.starboardFront.getPosition());
+		SmartDashboard.putNumber("port motor '.get' ", chassis.portFront.getPosition());
+		
 		chassis.motorInit();
 		climber.climberInit();
 	}
@@ -143,14 +160,22 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		
-//		SmartDashboard.putNumber("left motor '.get' ", chassis.leftFront.getPosition());
-//		SmartDashboard.putNumber("right motor '.get' ", chassis.rightFront.getPosition());
+		SmartDashboard.putNumber("starboard motor '.get' ", chassis.starboardFront.getPosition());
+		SmartDashboard.putNumber("port motor '.get' ", chassis.portFront.getPosition());
 				
 //		SmartDashboard.putNumber("encoder", ft);
 		
-//		SmartDashboard.putNumber("nav-X", Robot.chassis.getAngle());
+//		SmartDashboard.putNumber("ultra volt",Robot.gear.getUltraVolt());
+//		SmartDashboard.putNumber("ultra val",Robot.gear.getUltraVal());
+		
+		SmartDashboard.putBoolean("photo", Robot.gear.getPhotoSwitch());
+		
+		SmartDashboard.putNumber("nav-X", Robot.chassis.getAngle());
 		
 		Scheduler.getInstance().run();
+
+
+		
 	}
 
 	/**

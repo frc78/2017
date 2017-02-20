@@ -16,7 +16,6 @@ public class Intake extends Subsystem {
 
 	//Motors
 	CANTalon intakeMotor = new CANTalon(RobotMap.INTAKE_MOTOR);
-	DoubleSolenoid intakeSolenoid = new DoubleSolenoid(RobotMap.INTAKE_SOLENOID1,RobotMap.INTAKE_SOLENOID2);
 	 
 	//Sensors
 	//public final Encoder intakeEnc = new Encoder(RobotMap.INTAKE_ENCA, RobotMap.INTAKE_ENCB);
@@ -26,27 +25,26 @@ public class Intake extends Subsystem {
 		if(direction == "in"){ 
 			speed *= -1; 
 		}else if(direction == "out"){
-			speed *= 1;
+			speed *= 1; 
 		} 
 		
 		intakeMotor.set(speed);		
 	} 
 	
+	public void intakeWithJoysticks() {
+    	double speed = -Robot.oi.getManipulatorLeftStick();
+    	
+    	this.setIntake("in", speed);
+    }
+	
 	public void stopMotor(){
 		intakeMotor.set(0);
-	}
-	
-	public void downIntake(){
-		intakeSolenoid.set(DoubleSolenoid.Value.kForward);
-	}
-	
-	public void upIntake(){
-		intakeSolenoid.set(DoubleSolenoid.Value.kReverse);
 	}
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	
     }
 }
 

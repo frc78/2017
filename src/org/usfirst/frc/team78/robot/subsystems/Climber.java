@@ -15,17 +15,17 @@ public class Climber extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-	public static CANTalon climberLeft = new CANTalon(RobotMap.CLIMBER_LEFT);
-	public static CANTalon climberRight = new CANTalon(RobotMap.CLIMBER_RIGHT);
+	public static CANTalon climberStarboard = new CANTalon(RobotMap.CLIMBER_STARBOARD);
+	public static CANTalon climberPort = new CANTalon(RobotMap.CLIMBER_PORT);
 	
 	public static void climberInit(){
-		climberRight.changeControlMode(TalonControlMode.Follower);
-		climberRight.set(climberLeft.getDeviceID());
-		climberRight.reverseOutput(true);		
+		climberPort.changeControlMode(TalonControlMode.Follower);
+		climberPort.set(climberStarboard.getDeviceID());
+		climberPort.reverseOutput(true);		
 	}
 	
 	public static void setClimberSpeed(double speed){
-		climberLeft.set(speed);
+		climberStarboard.set(speed);
 	} 
 	
     public void initDefaultCommand() {

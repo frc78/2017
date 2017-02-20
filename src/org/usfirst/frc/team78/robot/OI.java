@@ -1,10 +1,16 @@
 package org.usfirst.frc.team78.robot;
 
+import org.usfirst.frc.team78.robot.commands.JoystickAnalogButton;
 import org.usfirst.frc.team78.robot.commands.climb;
 import org.usfirst.frc.team78.robot.commands.gearIntake;
 import org.usfirst.frc.team78.robot.commands.gearUp;
+import org.usfirst.frc.team78.robot.commands.intake;
+import org.usfirst.frc.team78.robot.commands.shooterPosTest;
 import org.usfirst.frc.team78.robot.commands.stopClimber;
+import org.usfirst.frc.team78.robot.commands.turn;
 import org.usfirst.frc.team78.robot.commands.gearDown;
+import org.usfirst.frc.team78.robot.commands.runLiveFloor;
+import org.usfirst.frc.team78.robot.commands.runShooterFeed;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -39,6 +45,14 @@ public class OI {
 	public Button manipulatorY;
 	public Button manipulatorLB;
 	public Button manipulatorRB;
+	public Button manipulatorBack;
+	public Button manipulatorStart;
+	public JoystickAnalogButton manipulatorLT;
+	public JoystickAnalogButton manipulatorRT;
+	public JoystickAnalogButton manipulatorLeftStickUp;
+	public JoystickAnalogButton manipulatorLeftStickDown;
+	public JoystickAnalogButton manipulatorRightStickUp;
+	public JoystickAnalogButton manipulatorRightStickDown;
 	
 
 	 
@@ -63,6 +77,16 @@ public class OI {
 		manipulatorY = new JoystickButton(manipulatorStick, 4);
 		manipulatorLB = new JoystickButton(manipulatorStick, 5);
 		manipulatorRB = new JoystickButton(manipulatorStick, 6);
+		manipulatorBack = new JoystickButton(manipulatorStick, 7);
+		manipulatorStart = new JoystickButton(manipulatorStick, 8);
+		manipulatorLT = new JoystickAnalogButton(manipulatorStick, 2, STICK_DEADZONE);
+		manipulatorLT = new JoystickAnalogButton(manipulatorStick, 3, STICK_DEADZONE);
+		manipulatorLeftStickUp = new JoystickAnalogButton(manipulatorStick, 1, -3 * STICK_DEADZONE);
+		manipulatorLeftStickDown = new JoystickAnalogButton(manipulatorStick, 1, STICK_DEADZONE);
+		manipulatorRightStickUp = new JoystickAnalogButton(manipulatorStick, 5, -STICK_DEADZONE);
+		manipulatorRightStickDown = new JoystickAnalogButton(manipulatorStick, 5, STICK_DEADZONE);
+		
+		//manipulatorLT.whileHeld(new runLiveFloor(1));
 		
 		//VISION BUTTONS
 //		driverY.whileHeld(new shooterPixy());
@@ -70,24 +94,40 @@ public class OI {
 		
 		//DRIVING BUTTONS
 		
+		//when both bumpers are held its slow speed. in driveWithJoysticks
 		
 		//GEAR BUTTONS
+		//temporarily commented out for shooter testing 20170219 JRC
 		manipulatorLB.whileHeld(new gearIntake("out", 0.65));
 		manipulatorRB.whileHeld(new gearIntake("in", 0.78));
 		
 		manipulatorB.whileHeld(new gearDown());
 		manipulatorB.whenReleased(new gearUp());
 		
-		
+		 
 		//CLIBMER BUTTONS		
-		manipulatorA.whileHeld(new climb(0.4));
-		manipulatorA.whenReleased(new stopClimber());
-		manipulatorX.whileHeld(new climb(1));
-		manipulatorX.whenReleased(new stopClimber());
+		driverRT.whileHeld(new climb(1)); 
+		driverRT.whenReleased(new stopClimber());
+		driverLT.whileHeld(new climb(0.4));
+		driverLT.whenReleased(new stopClimber()); 
+		
+		
+		
+		//INTAKE BUTTONS
+		manipulatorLeftStickDown.whileHeld(new intake("in", 0.6));
+			//manipulatorX.whileHeld(new intake("in", 0.6));
+		manipulatorLeftStickUp.whileHeld(new intake("out", 0.6));
+			//manipulatorA.whileHeld(new intake ("out", 0.6));
+		
+		//SHOOTER BUTTONS
+		//Temp for testing
+		manipulatorY.whileHeld(new shooterPosTest(5000));
+		manipulatorBack.whileHeld(new runShooterFeed(1));
+		manipulatorX.whileHeld(new runLiveFloor(1));
 		
 	}
 	
-	//STICKS AND TRIGGER SETUP	
+	//STICKS AND TRIGGERS SETUP	
 	public double getManipulatorLeftStick() {
 		double stick = manipulatorStick.getY();
 		if(Math.abs(stick) < STICK_DEADZONE) return 0;
@@ -102,13 +142,13 @@ public class OI {
 	
 	public boolean manipulatorLT() {
 		double trigger = manipulatorStick.getRawAxis(2);
-		if(trigger < STICK_DEADZONE) return false;
+		if(Math.abs(trigger) < STICK_DEADZONE) return false;
 		else return true;
 	}
 	
 	public boolean manipulatorRT() {
 		double trigger = manipulatorStick.getRawAxis(3);
-		if(trigger < STICK_DEADZONE) return false;
+		if(Math.abs(trigger) < STICK_DEADZONE) return false;
 		else return true;
 	}
 	
