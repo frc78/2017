@@ -1,5 +1,7 @@
 package org.usfirst.frc.team78.robot.subsystems;
 
+import org.usfirst.frc.team78.robot.Robot;
+
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.I2C.Port;
@@ -33,6 +35,32 @@ public class Vision extends Subsystem {
 	        // Set the default command for a subsystem here.
 	        //setDefaultCommand(new MySpecialCommand());
 	    	//setDefaultCommand();
+	    }
+	    
+	    public static double getGearX0(){
+	    	double X0 = 0;
+	    	try{
+	    		X0 = Robot.table.getNumber("x0", -1000);
+	    	}catch(Exception e){
+	    		return -1000;
+	    	}
+	    	return X0;
+	    }
+	    
+	    public static double getGearX1(){
+	    	double X1 = 0;
+	    	try{
+	    		X1 = Robot.table.getNumber("x1", -1000);
+	    	}catch(Exception e){
+	    		return -1000;
+	    	}
+	    	return X1;
+	    }
+	    
+	    public static double getGearPegX(){
+	    	double peg = (getGearX0() + getGearX1()) / 2; 
+	    	//finding the middle of the two targets
+	    	return peg;
 	    }
 	    
 	    public boolean isAtVisionTarget(double target, double xPos){

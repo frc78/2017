@@ -39,7 +39,7 @@ public class driveStraight extends Command {
 		
     	
     	Robot.chassis.portFront.setP(0.95);
-    	Robot.chassis.portFront.setI(0.00005);
+    	Robot.chassis.portFront.setI(0.0001);
     	Robot.chassis.portFront.setD(1.15);
     	
     	Robot.chassis.starboardFront.configEncoderCodesPerRev(120);
@@ -52,7 +52,7 @@ public class driveStraight extends Command {
     	Robot.chassis.starboardFront.setEncPosition(0);
     	
     	Robot.chassis.starboardFront.setP(0.95);
-    	Robot.chassis.starboardFront.setI(0.00005);
+    	Robot.chassis.starboardFront.setI(0.0001);
     	Robot.chassis.starboardFront.setD(1.15);
     	
 //    	Robot.chassis.leftFront.changeControlMode(TalonControlMode.Follower);

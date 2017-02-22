@@ -3,6 +3,7 @@ package org.usfirst.frc.team78.robot;
 import org.usfirst.frc.team78.robot.commands.JoystickAnalogButton;
 import org.usfirst.frc.team78.robot.commands.climb;
 import org.usfirst.frc.team78.robot.commands.gearIntake;
+import org.usfirst.frc.team78.robot.commands.gearPixy;
 import org.usfirst.frc.team78.robot.commands.gearUp;
 import org.usfirst.frc.team78.robot.commands.intake;
 import org.usfirst.frc.team78.robot.commands.shooterPosTest;
@@ -93,7 +94,7 @@ public class OI {
 //		driverA.whileHeld(new gearPixy());
 		
 		//DRIVING BUTTONS
-		
+		driverBack.whileHeld(new gearPixy());
 		//when both bumpers are held its slow speed. in driveWithJoysticks
 		
 		//GEAR BUTTONS

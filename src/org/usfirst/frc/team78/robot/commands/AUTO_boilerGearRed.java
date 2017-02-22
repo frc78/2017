@@ -27,9 +27,11 @@ public class AUTO_boilerGearRed extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	addSequential(new driveStraight(-3.5), 3);
+    	addSequential(new driveStraight(-3.5));
     	addSequential(new turn(-40));
-    	addSequential(new driveStraight(-6.0),5);
+    	addSequential(new driveStraight(-5.0));
+    	addSequential(new gearPixy());
+    	addSequential(new driveStraight(0.5));
     	
     }
 }

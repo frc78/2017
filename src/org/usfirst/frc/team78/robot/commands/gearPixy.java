@@ -11,14 +11,14 @@ import edu.wpi.first.wpilibj.command.Command;
 public class gearPixy extends Command {
 
 	double speed;
-	double scale = 0.005;
+	double scale = 0.007;
 	double output;
 	
     public gearPixy() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.chassis);
-    	requires(Robot.vision);
+//    	requires(Robot.chassis);
+    	//requires(Robot.vision);
     }
 
     // Called just before this Command runs the first time
@@ -28,12 +28,12 @@ public class gearPixy extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	if(Vision.gearXPos > 165){
-    		speed = (Vision.gearXPos - 165) * scale;
-    		Robot.chassis.setSpeed(-speed, -speed);
-    	}else if(Vision.gearXPos < 155){
-    		speed = (155 - Vision.gearXPos) * scale;
-    		Robot.chassis.setSpeed(speed, speed);
+    	if(Vision.getGearPegX() > 165){
+    		speed = (Vision.getGearPegX() - 165) * scale;
+    		Robot.chassis.setSpeed(speed, -speed);
+    	}else if(Vision.getGearPegX() < 163){
+    		speed = (163 - Vision.getGearPegX()) * scale;
+    		Robot.chassis.setSpeed(-speed, speed);
     	}else{
     		Robot.chassis.stopAllDrive();
     	}

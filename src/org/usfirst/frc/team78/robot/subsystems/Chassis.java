@@ -63,7 +63,7 @@ public class Chassis extends Subsystem {
 //Variables
 	public boolean timerStart = false;
 	public boolean atTarget = false;
-	final double GYRO_P = (0.019);	
+	final double GYRO_P = (0.023);	
 	
 //TIMER
 	public Timer timer = new Timer();	

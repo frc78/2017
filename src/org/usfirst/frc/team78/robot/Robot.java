@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team78.robot;
 
+import javax.swing.text.StyleContext.SmallAttributeSet;
+
 import org.usfirst.frc.team78.robot.commands.AUTO_boilerGearBlue;
 import org.usfirst.frc.team78.robot.commands.AUTO_boilerGearRed;
 import org.usfirst.frc.team78.robot.commands.AUTO_doNothing;
@@ -15,11 +17,14 @@ import org.usfirst.frc.team78.robot.subsystems.Shooter;
 import org.usfirst.frc.team78.robot.subsystems.Vision;
 import org.usfirst.frc.team78.robot.subsystems.Climber;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.networktables.NetworkTablesJNI;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -42,6 +47,8 @@ public class Robot extends IterativeRobot {
 	public static final Gear gear = new Gear();
 	public static final Climber climber = new Climber();
 	public static OI oi;
+	
+	public static NetworkTable table;
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -50,6 +57,7 @@ public class Robot extends IterativeRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
+	
 	@Override 
 	public void robotInit() {
 		oi = new OI();
@@ -61,12 +69,16 @@ public class Robot extends IterativeRobot {
 		chooser = new SendableChooser<>();
 		//chooser.addObject("Drive for 5", new AUTO_driveFor5());
 		//chooser.addObject("Do nothing", new AUTO_doNothing());
-		//chooser.addDefault("Front Gear", new AUTO_frontGear());
+		//chooser.addObject("Front Gear", new AUTO_frontGear());
 		chooser.addDefault("Boiler Gear Red", new AUTO_boilerGearRed());
-		chooser.addObject("Boiler Gear Blue", new AUTO_boilerGearBlue());
+		//chooser.addObject("Boiler Gear Blue", new AUTO_boilerGearBlue());
 		SmartDashboard.putData("Auto mode", chooser);
 		
-				
+		table = NetworkTable.getTable("DataTable");
+	
+		Compressor c = new Compressor(0);
+    	c.setClosedLoopControl(true);
+		
 		//Shooter init 
 		shooter.shooterMotorInit();
 		shooter.shooterPort.setPosition(0);
@@ -148,7 +160,7 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		
 		SmartDashboard.putNumber("starboard motor '.get' ", chassis.starboardFront.getPosition());
-		SmartDashboard.putNumber("port motor '.get' ", chassis.portFront.getPosition());
+		SmartDashboard.putNumber("port motor '.get' ", chassis.portFront.getPosition());	
 		
 		chassis.motorInit();
 		climber.climberInit();
@@ -171,6 +183,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("photo", Robot.gear.getPhotoSwitch());
 		
 		SmartDashboard.putNumber("nav-X", Robot.chassis.getAngle());
+		
+		SmartDashboard.putNumber("X0", Robot.vision.getGearX0());
+		SmartDashboard.putNumber("X1", Robot.vision.getGearX1());
+		SmartDashboard.putNumber("peg", Robot.vision.getGearPegX());
 		
 		Scheduler.getInstance().run();
 
