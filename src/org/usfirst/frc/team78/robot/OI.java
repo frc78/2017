@@ -95,8 +95,7 @@ public class OI {
 		
 		//DRIVING BUTTONS
 		driverBack.whileHeld(new gearPixy());
-		//when both bumpers are held its slow speed. in driveWithJoysticks
-		
+		 		
 		//GEAR BUTTONS
 		//temporarily commented out for shooter testing 20170219 JRC
 		manipulatorLB.whileHeld(new gearIntake("out", 0.65));

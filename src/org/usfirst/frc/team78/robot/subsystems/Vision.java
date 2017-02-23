@@ -58,7 +58,18 @@ public class Vision extends Subsystem {
 	    }
 	    
 	    public static double getGearPegX(){
-	    	double peg = (getGearX0() + getGearX1()) / 2; 
+	    	double x0 = getGearX0();
+	    	double x1 = getGearX1();
+	    	
+	    	if(x0 == -1000){
+	    		x0 = x1;
+	    	}
+	    	
+	    	if(x1 == -1000){
+	    		x1 = x0;
+	    	}
+	    	
+	    	double peg = (x0 + x1) / 2; 
 	    	//finding the middle of the two targets
 	    	return peg;
 	    }

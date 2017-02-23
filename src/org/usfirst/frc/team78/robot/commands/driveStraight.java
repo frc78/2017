@@ -38,9 +38,9 @@ public class driveStraight extends Command {
     	Robot.chassis.portFront.setEncPosition(0);
 		
     	
-    	Robot.chassis.portFront.setP(0.95);
+    	Robot.chassis.portFront.setP(0.93);
     	Robot.chassis.portFront.setI(0.0001);
-    	Robot.chassis.portFront.setD(1.15);
+    	Robot.chassis.portFront.setD(1.18);
     	
     	Robot.chassis.starboardFront.configEncoderCodesPerRev(120);
     	Robot.chassis.starboardFront.setPosition(Robot.chassis.starboardFront.getPosition());
@@ -51,9 +51,9 @@ public class driveStraight extends Command {
     	Robot.chassis.starboardFront.configMaxOutputVoltage(4);
     	Robot.chassis.starboardFront.setEncPosition(0);
     	
-    	Robot.chassis.starboardFront.setP(0.95);
+    	Robot.chassis.starboardFront.setP(0.93);
     	Robot.chassis.starboardFront.setI(0.0001);
-    	Robot.chassis.starboardFront.setD(1.15);
+    	Robot.chassis.starboardFront.setD(1.18);
     	
 //    	Robot.chassis.leftFront.changeControlMode(TalonControlMode.Follower);
 //    	Robot.chassis.leftFront.set(Robot.chassis.rightFront.getDeviceID());

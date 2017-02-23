@@ -20,8 +20,8 @@ public class Gear extends Subsystem {
 	public CANTalon intakeMotor = new CANTalon(RobotMap.GEAR_INTAKE_MOTOR);
 	DoubleSolenoid gearSolenoid = new DoubleSolenoid(RobotMap.GEAR_SOLENOID1,RobotMap.GEAR_SOLENOID2);
 	
-//	AnalogInput ultra = new AnalogInput(RobotMap.ULTRA);
-	DigitalInput photo = new DigitalInput(RobotMap.PHOTO_SWITCH);
+	AnalogInput ultra = new AnalogInput(RobotMap.ULTRA);
+//	DigitalInput photo = new DigitalInput(RobotMap.PHOTO_SWITCH);
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -52,21 +52,25 @@ public class Gear extends Subsystem {
     public void stopMotor() {
     	intakeMotor.set(0);
     }
-    public void gearInit(){
+    public void gearInit(){ 
     	this.upGear();
     }
     
-    public boolean getPhotoSwitch(){
-    	return photo.get();
+    public double getCurrent(){
+    	return intakeMotor.getOutputCurrent();
     }
     
-//    public double getUltraVolt(){
-//    	return ultra.getAverageVoltage();
-////    	return ultra.getVoltage();
+//    public boolean getPhotoSwitch(){
+//    	return photo.get();
 //    }
-//    public double getUltraVal(){
-//    	return ultra.getAverageValue();
-////    	return ultra.getValue();
-//    }
+    
+    public double getUltraVolt(){
+    	return ultra.getAverageVoltage();
+//    	return ultra.getVoltage();
+    }
+    public double getUltraVal(){
+    	return ultra.getAverageValue();
+//    	return ultra.getValue();
+    }
 }
 

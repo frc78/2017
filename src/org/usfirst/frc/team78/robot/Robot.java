@@ -107,6 +107,9 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		SmartDashboard.putNumber("X0", Robot.vision.getGearX0());
+		SmartDashboard.putNumber("X1", Robot.vision.getGearX1());
+		SmartDashboard.putNumber("peg", Robot.vision.getGearPegX());
 		Scheduler.getInstance().run();
 	}
 
@@ -177,10 +180,12 @@ public class Robot extends IterativeRobot {
 				
 //		SmartDashboard.putNumber("encoder", ft);
 		
-//		SmartDashboard.putNumber("ultra volt",Robot.gear.getUltraVolt());
-//		SmartDashboard.putNumber("ultra val",Robot.gear.getUltraVal());
+		SmartDashboard.putNumber("ultra volt",Robot.gear.getUltraVolt());
+		SmartDashboard.putNumber("ultra val",Robot.gear.getUltraVal());
 		
-		SmartDashboard.putBoolean("photo", Robot.gear.getPhotoSwitch());
+//		SmartDashboard.putBoolean("photo", Robot.gear.getPhotoSwitch());
+		
+		SmartDashboard.putNumber("current", Robot.gear.getCurrent());
 		
 		SmartDashboard.putNumber("nav-X", Robot.chassis.getAngle());
 		

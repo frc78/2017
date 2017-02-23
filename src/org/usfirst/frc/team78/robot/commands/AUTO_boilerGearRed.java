@@ -29,9 +29,10 @@ public class AUTO_boilerGearRed extends CommandGroup {
     	
     	addSequential(new driveStraight(-3.5));
     	addSequential(new turn(-40));
-    	addSequential(new driveStraight(-5.0));
-    	addSequential(new gearPixy());
-    	addSequential(new driveStraight(0.5));
+    	addSequential(new driveStraight(-5.73));
+    	
+    	addSequential(new driveStraight(4.5));
+     	addSequential(new turn(0.5));
     	
     }
 }

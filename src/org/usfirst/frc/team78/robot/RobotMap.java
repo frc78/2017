@@ -56,5 +56,5 @@ public class RobotMap {
 //		public static final int INTAKE_ENCB = 7;
 		
 		//Gear
-		public static final int PHOTO_SWITCH = 8;
+		public static final int ULTRA = 0;
 }

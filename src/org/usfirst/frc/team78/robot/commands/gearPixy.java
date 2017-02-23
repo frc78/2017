@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class gearPixy extends Command {
 
 	double speed;
-	double scale = 0.007;
+	double scale = 0.01;
 	double output;
 	
     public gearPixy() {
@@ -28,11 +28,11 @@ public class gearPixy extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	if(Vision.getGearPegX() > 165){
-    		speed = (Vision.getGearPegX() - 165) * scale;
+    	if(Vision.getGearX0() > 216){
+    		speed = (Vision.getGearX0() - 216) * scale;
     		Robot.chassis.setSpeed(speed, -speed);
-    	}else if(Vision.getGearPegX() < 163){
-    		speed = (163 - Vision.getGearPegX()) * scale;
+    	}else if(Vision.getGearX0() < 214){
+    		speed = (214 - Vision.getGearX0()) * scale;
     		Robot.chassis.setSpeed(-speed, speed);
     	}else{
     		Robot.chassis.stopAllDrive();
