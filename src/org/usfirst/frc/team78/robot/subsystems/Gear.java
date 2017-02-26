@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 /**
  *
@@ -22,6 +23,8 @@ public class Gear extends Subsystem {
 	
 	AnalogInput ultra = new AnalogInput(RobotMap.ULTRA);
 //	DigitalInput photo = new DigitalInput(RobotMap.PHOTO_SWITCH);
+	
+	public boolean solonoidVal = false;
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -41,13 +44,27 @@ public class Gear extends Subsystem {
     	this.intakeMotor.set(0);
     }
     
+    
+    
 	public void downGear(){
 		gearSolenoid.set(DoubleSolenoid.Value.kForward);
+		solonoidVal = true;
 	}
 	
 	public void upGear(){
 		gearSolenoid.set(DoubleSolenoid.Value.kReverse);
+		solonoidVal = false;
 	}
+	
+	public void gearSwitch(){
+    	if(solonoidVal == true){
+    		upGear();
+    	}else if(solonoidVal == false){
+    		downGear();
+    	}else{
+    		upGear();
+    	}
+    }
     
     public void stopMotor() {
     	intakeMotor.set(0);

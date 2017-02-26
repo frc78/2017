@@ -178,20 +178,15 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("starboard motor '.get' ", chassis.starboardFront.getPosition());
 		SmartDashboard.putNumber("port motor '.get' ", chassis.portFront.getPosition());
 				
-//		SmartDashboard.putNumber("encoder", ft);
-		
-		SmartDashboard.putNumber("ultra volt",Robot.gear.getUltraVolt());
-		SmartDashboard.putNumber("ultra val",Robot.gear.getUltraVal());
-		
-//		SmartDashboard.putBoolean("photo", Robot.gear.getPhotoSwitch());
+		boolean bool = false;
+		if(Robot.gear.intakeMotor.get() != 0){
+			bool = true;
+		} 
+		SmartDashboard.putBoolean("gear intake wheels", bool);
 		
 		SmartDashboard.putNumber("current", Robot.gear.getCurrent());
 		
 		SmartDashboard.putNumber("nav-X", Robot.chassis.getAngle());
-		
-		SmartDashboard.putNumber("X0", Robot.vision.getGearX0());
-		SmartDashboard.putNumber("X1", Robot.vision.getGearX1());
-		SmartDashboard.putNumber("peg", Robot.vision.getGearPegX());
 		
 		Scheduler.getInstance().run();
 

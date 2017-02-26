@@ -4,6 +4,7 @@ import org.usfirst.frc.team78.robot.commands.JoystickAnalogButton;
 import org.usfirst.frc.team78.robot.commands.climb;
 import org.usfirst.frc.team78.robot.commands.gearIntake;
 import org.usfirst.frc.team78.robot.commands.gearPixy;
+import org.usfirst.frc.team78.robot.commands.gearSwitch;
 import org.usfirst.frc.team78.robot.commands.gearUp;
 import org.usfirst.frc.team78.robot.commands.intake;
 import org.usfirst.frc.team78.robot.commands.shooterPosTest;
@@ -55,7 +56,7 @@ public class OI {
 	public JoystickAnalogButton manipulatorRightStickUp;
 	public JoystickAnalogButton manipulatorRightStickDown;
 	
-
+	public boolean gearIntakeBool = true;
 	 
 	public OI(){
 		driverStick = new Joystick(0);
@@ -94,16 +95,18 @@ public class OI {
 //		driverA.whileHeld(new gearPixy());
 		
 		//DRIVING BUTTONS
-		driverBack.whileHeld(new gearPixy());
+//		driverBack.whileHeld(new gearPixy());
 		 		
 		//GEAR BUTTONS
 		//temporarily commented out for shooter testing 20170219 JRC
 		manipulatorLB.whileHeld(new gearIntake("out", 0.65));
-		manipulatorRB.whileHeld(new gearIntake("in", 0.78));
+//		if(gearIntakeBool == true){
+			manipulatorRB.whenPressed(new gearIntake("in", 0.78));
+//		}
 		
-		manipulatorB.whileHeld(new gearDown());
-		manipulatorB.whenReleased(new gearUp());
-		
+//		manipulatorB.whileHeld(new gearDown());
+//		manipulatorB.whenReleased(new gearUp());
+		manipulatorB.whenPressed(new gearSwitch());
 		 
 		//CLIBMER BUTTONS		
 		driverRT.whileHeld(new climb(1)); 

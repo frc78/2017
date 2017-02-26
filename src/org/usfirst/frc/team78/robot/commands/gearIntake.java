@@ -31,7 +31,7 @@ public class gearIntake extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(Robot.gear.getCurrent() >= 5 && i > 20){
+    	if(Robot.gear.getCurrent() >= 8 && i > 20){
     		speed = 0;
     	}else{
     		speed = speed;
@@ -43,12 +43,18 @@ public class gearIntake extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+    	if(speed == 0){
+    		return true;
+    	}else{
+    		return false;
+    	}
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.gear.upGear();
     	Robot.gear.stopIntakeMotor();
+    	Robot.oi.gearIntakeBool = false;
     }
 
     // Called when another command which requires one or more of the same
