@@ -7,6 +7,7 @@ import org.usfirst.frc.team78.robot.commands.gearPixy;
 import org.usfirst.frc.team78.robot.commands.gearSwitch;
 import org.usfirst.frc.team78.robot.commands.gearUp;
 import org.usfirst.frc.team78.robot.commands.intake;
+import org.usfirst.frc.team78.robot.commands.liveFloorStop;
 import org.usfirst.frc.team78.robot.commands.shooterPosTest;
 import org.usfirst.frc.team78.robot.commands.stopClimber;
 import org.usfirst.frc.team78.robot.commands.turn;
@@ -119,14 +120,15 @@ public class OI {
 		//INTAKE BUTTONS
 		manipulatorLeftStickDown.whileHeld(new intake("in", 0.6));
 			//manipulatorX.whileHeld(new intake("in", 0.6));
-		manipulatorLeftStickUp.whileHeld(new intake("out", 0.6));
+		manipulatorLeftStickUp.whileHeld(new intake("out", 0.6)); 
 			//manipulatorA.whileHeld(new intake ("out", 0.6));
-		
+		 
 		//SHOOTER BUTTONS
 		//Temp for testing
 		manipulatorY.whileHeld(new shooterPosTest(5000));
 		manipulatorBack.whileHeld(new runShooterFeed(1));
 		manipulatorX.whileHeld(new runLiveFloor(1));
+		manipulatorX.whenReleased(new liveFloorStop());
 		
 	}
 	
