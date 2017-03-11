@@ -3,6 +3,7 @@ package org.usfirst.frc.team78.robot;
 import org.usfirst.frc.team78.robot.commands.JoystickAnalogButton;
 import org.usfirst.frc.team78.robot.commands.climb;
 import org.usfirst.frc.team78.robot.commands.gearIntake;
+import org.usfirst.frc.team78.robot.commands.gearOuttake;
 import org.usfirst.frc.team78.robot.commands.gearPixy;
 import org.usfirst.frc.team78.robot.commands.gearSwitch;
 import org.usfirst.frc.team78.robot.commands.gearUp;
@@ -14,6 +15,8 @@ import org.usfirst.frc.team78.robot.commands.turn;
 import org.usfirst.frc.team78.robot.commands.gearDown;
 import org.usfirst.frc.team78.robot.commands.runLiveFloor;
 import org.usfirst.frc.team78.robot.commands.runShooterFeed;
+import org.usfirst.frc.team78.robot.commands.setShooterSpeed;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -89,21 +92,22 @@ public class OI {
 		manipulatorRightStickUp = new JoystickAnalogButton(manipulatorStick, 5, -STICK_DEADZONE);
 		manipulatorRightStickDown = new JoystickAnalogButton(manipulatorStick, 5, STICK_DEADZONE);
 		
-		//manipulatorLT.whileHeld(new runLiveFloor(1));
-		
 		//VISION BUTTONS
-//		driverY.whileHeld(new shooterPixy());
-//		driverA.whileHeld(new gearPixy());
+
 		
-		//DRIVING BUTTONS
-//		driverBack.whileHeld(new gearPixy());
-		 		
+		//DRIVING BUTTONS 
+
+		 		  
 		//GEAR BUTTONS
 		//temporarily commented out for shooter testing 20170219 JRC
-		manipulatorLB.whileHeld(new gearIntake("out", 0.65));
-//		if(gearIntakeBool == true){
-			manipulatorRB.whenPressed(new gearIntake("in", 0.78));
-//		}
+		manipulatorLB.whileHeld(new gearOuttake("out", 0.65));
+		manipulatorLB.whenReleased(new gearOuttake("out", 0));
+		manipulatorRB.whenPressed(new gearIntake("in", 0.78));
+		manipulatorLT.whileHeld(new gearOuttake("in", 0.78));
+		manipulatorLT.whenReleased(new gearOuttake("in", 0));
+		
+		manipulatorA.whileHeld(new gearDown());
+		manipulatorA.whenReleased(new gearUp());
 		
 //		manipulatorB.whileHeld(new gearDown());
 //		manipulatorB.whenReleased(new gearUp());
@@ -113,22 +117,22 @@ public class OI {
 		driverRT.whileHeld(new climb(1)); 
 		driverRT.whenReleased(new stopClimber());
 		driverLT.whileHeld(new climb(0.4));
-		driverLT.whenReleased(new stopClimber()); 
+		driverLT.whenReleased(new stopClimber());  
 		
 		
 		
 		//INTAKE BUTTONS
 		manipulatorLeftStickDown.whileHeld(new intake("in", 0.6));
-			//manipulatorX.whileHeld(new intake("in", 0.6));
-		manipulatorLeftStickUp.whileHeld(new intake("out", 0.6)); 
-			//manipulatorA.whileHeld(new intake ("out", 0.6));
+		manipulatorLeftStickUp.whileHeld(new intake("out", 0.6));
+//		manipulatorX.whileHeld(new intake("in", 0.6));
+//		manipulatorA.whileHeld(new intake ("out", 0.6));
 		 
 		//SHOOTER BUTTONS
-		//Temp for testing
-		manipulatorY.whileHeld(new shooterPosTest(5000));
-		manipulatorBack.whileHeld(new runShooterFeed(1));
-		manipulatorX.whileHeld(new runLiveFloor(1));
-		manipulatorX.whenReleased(new liveFloorStop());
+//		manipulatorY.whileHeld(new setShooterSpeed(1));
+//		manipulatorY.whenReleased(new setShooterSpeed(0));
+//		manipulatorBack.whileHeld(new runShooterFeed(1));
+//		manipulatorX.whileHeld(new runLiveFloor(0.6));
+//		manipulatorX.whenReleased(new liveFloorStop());
 		
 	}
 	

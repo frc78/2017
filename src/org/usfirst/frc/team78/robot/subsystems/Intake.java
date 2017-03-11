@@ -41,6 +41,10 @@ public class Intake extends Subsystem {
 		intakeMotor.set(0);
 	}
 	
+	public double getCurrent(){
+		return intakeMotor.getOutputCurrent();
+	}
+	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

@@ -28,6 +28,10 @@ public class Climber extends Subsystem {
 		climberStarboard.set(speed);
 	} 
 	
+	public static void stopClimber(){
+		climberStarboard.set(0);
+	}
+	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

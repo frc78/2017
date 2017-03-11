@@ -41,6 +41,9 @@ public class Chassis extends Subsystem {
 		portTop.changeControlMode(TalonControlMode.Follower);
 		portTop.set(portFront.getDeviceID());
 		
+//		portFront.setVoltageRampRate(9);
+//		starboardFront.setVoltageRampRate(9);
+		
 		Robot.chassis.portFront.configEncoderCodesPerRev(120);
 		Robot.chassis.starboardFront.configEncoderCodesPerRev(120);
 		
@@ -84,12 +87,12 @@ public class Chassis extends Subsystem {
     }
 	
 	public void driveWithJoysticks() {
-    	double port = Robot.oi.getDriverLeftStick();
-    	double starboard = Robot.oi.getDriverRightStick();
+    	double port = Robot.oi.getDriverLeftStick() * 0.45;
+    	double starboard = Robot.oi.getDriverRightStick() * 0.45;
 
-    	if(Robot.oi.driverStick.getRawButton(5) && Robot.oi.driverStick.getRawButton(6)){
-    		starboard *= 0.3;
-    		port *= 0.3;
+    	if(Robot.oi.driverStick.getRawButton(5) || Robot.oi.driverStick.getRawButton(6)){
+    		starboard /= 0.45;
+    		port /= 0.45;
     	}
     	
     	setSpeed(port, starboard);

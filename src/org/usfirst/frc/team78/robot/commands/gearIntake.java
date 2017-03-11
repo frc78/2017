@@ -33,6 +33,7 @@ public class gearIntake extends Command {
     protected void execute() {
     	if(Robot.gear.getCurrent() >= 8 && i > 20){
     		speed = 0;
+    		Robot.gear.currentDraw = true;
     	}else{
     		speed = speed;
     	}
@@ -55,6 +56,7 @@ public class gearIntake extends Command {
     	Robot.gear.upGear();
     	Robot.gear.stopIntakeMotor();
     	Robot.oi.gearIntakeBool = false;
+    	Robot.gear.currentDraw = false;
     }
 
     // Called when another command which requires one or more of the same
