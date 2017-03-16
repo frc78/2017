@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class intake extends Command {
 	String direction;
 	double speed;
+	int i;
 	
     public intake(String Direction, double Speed) {
         // Use requires() here to declare subsystem dependencies
@@ -26,7 +27,14 @@ public class intake extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intake.setIntake(direction, speed);
+    	if(Robot.intake.getCurrent() >= 30 && i > 50){
+    		speed = 0;
+    	}else{
+    		speed = speed;
+    	}
+    	Robot.intake.setIntake(direction, speed);  
+    	
+    	i++;
     }
 
     // Make this return true when this Command no longer needs to run execute()

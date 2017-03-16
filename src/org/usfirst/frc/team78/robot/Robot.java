@@ -8,6 +8,7 @@ import org.usfirst.frc.team78.robot.commands.AUTO_boilerGearRed;
 import org.usfirst.frc.team78.robot.commands.AUTO_doNothing;
 import org.usfirst.frc.team78.robot.commands.AUTO_driveFor5;
 import org.usfirst.frc.team78.robot.commands.AUTO_frontGear;
+import org.usfirst.frc.team78.robot.commands.AUTO_gearBoilerStraight;
 import org.usfirst.frc.team78.robot.commands.gearIntake;
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
 import org.usfirst.frc.team78.robot.subsystems.Climber;
@@ -17,6 +18,9 @@ import org.usfirst.frc.team78.robot.subsystems.Shooter;
 import org.usfirst.frc.team78.robot.subsystems.Vision;
 import org.usfirst.frc.team78.robot.subsystems.Climber;
 
+import edu.wpi.cscore.CameraServerJNI;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -39,16 +43,19 @@ import org.usfirst.frc.team78.robot.commands.intake;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
-	public static final Chassis chassis = new Chassis();
+ 
+	public static final Chassis chassis = new Chassis(); 
 	public static final Vision vision = new Vision();
-	public static final Shooter shooter = new Shooter();
+	public static final Shooter shooter = new Shooter(); 
 	public static final Intake intake = new Intake();
 	public static final Gear gear = new Gear();
 	public static final Climber climber = new Climber();
 	public static OI oi;
 	
 	public static NetworkTable table;
+	
+	int countdown = 6;
+	boolean isReleased = true;
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -59,26 +66,34 @@ public class Robot extends IterativeRobot {
 	 */
 	
 	@Override 
-	public void robotInit() {
+	public void robotInit() { 
 		oi = new OI();
 //		chooser.addDefault("Default Auto", new ExampleCommand());
 //		chooser.addObject("My Auto", new MyAutoCommand());
 		
 		//UNCOMMENT AUTO MODES
-		
+		//auto chooser 
 		chooser = new SendableChooser<>();
-		//chooser.addObject("Drive for 5", new AUTO_driveFor5());
-		//chooser.addObject("Do nothing", new AUTO_doNothing());
-		//chooser.addObject("Front Gear", new AUTO_frontGear());
-		chooser.addDefault("Boiler Gear Red", new AUTO_boilerGearRed());
-		//chooser.addObject("Boiler Gear Blue", new AUTO_boilerGearBlue());
+		chooser.addObject("Drive for 5", new AUTO_driveFor5());
+		chooser.addObject("Do nothing", new AUTO_doNothing());
+		chooser.addDefault("Front Gear", new AUTO_frontGear());
+		chooser.addObject("Drive Straight from Boiler", new AUTO_gearBoilerStraight());
+		chooser.addObject("Boiler Gear Blue", new AUTO_boilerGearBlue());	//untested	
+		chooser.addObject("Boiler Gear Red", new AUTO_boilerGearRed());	//current default auto
+		
 		SmartDashboard.putData("Auto mode", chooser);
+		//end auto chooser
 		
 		table = NetworkTable.getTable("DataTable");
 	
 		Compressor c = new Compressor(0);
     	c.setClosedLoopControl(true);
-		
+    	new Thread(() -> {
+    	//camera
+    		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+    		camera.setResolution(240, 180);
+
+    	}).start();
 		//Shooter init 
 		shooter.shooterMotorInit();
 		shooter.shooterPort.setPosition(0);
@@ -107,9 +122,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		SmartDashboard.putNumber("X0", Robot.vision.getGearX0());
-		SmartDashboard.putNumber("X1", Robot.vision.getGearX1());
-		SmartDashboard.putNumber("peg", Robot.vision.getGearPegX());
+//		tDashboard.putNumber("peg", Robot.vision.getGearPegX());
 		Scheduler.getInstance().run();
 	}
 
@@ -146,9 +159,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 
-		SmartDashboard.putNumber("Starboard motor '.get' ", chassis.starboardFront.getPosition());
-		SmartDashboard.putNumber("port motor '.get' ", chassis.portFront.getPosition());
-		SmartDashboard.putNumber("nav-X", Robot.chassis.getAngle());
+//		SmartDashboard.putNumber("Starboard motor '.get' ", chassis.starboardFront.getPosition());
+//		SmartDashboard.putNumber("port motor '.get' ", chassis.portFront.getPosition());
+//		SmartDashboard.putNumber("nav-X", Robot.chassis.getAngle());
 		
 		Scheduler.getInstance().run();
 	}
@@ -162,8 +175,8 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		
-		SmartDashboard.putNumber("starboard motor '.get' ", chassis.starboardFront.getPosition());
-		SmartDashboard.putNumber("port motor '.get' ", chassis.portFront.getPosition());	
+//		SmartDashboard.putNumber("starboard motor '.get' ", chassis.starboardFront.getPosition());
+//		SmartDashboard.putNumber("port motor '.get' ", chassis.portFront.getPosition());	
 		
 		chassis.motorInit();
 		climber.climberInit();
@@ -171,22 +184,36 @@ public class Robot extends IterativeRobot {
 
 	/**
 	 * This function is called periodically during operator control
-	 */
+	 */ 
 	@Override
 	public void teleopPeriodic() {
 		
-		SmartDashboard.putNumber("starboard motor '.get' ", chassis.starboardFront.getPosition());
-		SmartDashboard.putNumber("port motor '.get' ", chassis.portFront.getPosition());
-				
-		boolean bool = false;
-		if(Robot.gear.intakeMotor.get() != 0){
-			bool = true;
-		} 
-		SmartDashboard.putBoolean("gear intake wheels", bool);
+//		SmartDashboard.putNumber("starboard motor '.get' ", chassis.starboardFront.getPosition());
+//		SmartDashboard.putNumber("port motor '.get' ", chassis.portFront.getPosition());
+//				
+//		boolean bool = false;
+//		if(Robot.gear.intakeMotor.get() != 0){
+//			bool = true;
+//		}
+//		SmartDashboard.putBoolean("gear intake wheels", bool);
+//		SmartDashboard.putNumber("current", Robot.gear.getCurrent());
+//		
+//		boolean currentDraw = Robot.gear.currentDraw;
+//		SmartDashboard.putBoolean("gear intake current draw", currentDraw);
+//		
+//		SmartDashboard.putNumber("nav-X", Robot.chassis.getAngle());
+		 
+		//countdown
 		
-		SmartDashboard.putNumber("current", Robot.gear.getCurrent());
-		
-		SmartDashboard.putNumber("nav-X", Robot.chassis.getAngle());
+//		if(Robot.oi.manipulatorBack.get() && isReleased){
+//			countdown--;
+//			isReleased = false;
+//		}
+//		if(!Robot.oi.manipulatorBack.get()){
+//			isReleased = true;
+//		}
+//		
+//		SmartDashboard.putNumber("Gears Left", countdown);
 		
 		Scheduler.getInstance().run();
 

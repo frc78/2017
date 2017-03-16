@@ -1,13 +1,15 @@
 package org.usfirst.frc.team78.robot.commands;
 
+import org.usfirst.frc.team78.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AUTO_boilerGearBlue extends CommandGroup {
+public class AUTO_gearBoilerStraight extends CommandGroup {
 
-    public AUTO_boilerGearBlue() {
+    public AUTO_gearBoilerStraight() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -25,12 +27,8 @@ public class AUTO_boilerGearBlue extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	addSequential(new driveStraight(-2.9));
-    	addSequential(new turn(40));
-    	addSequential(new driveStraight(-6.3));
+    	addSequential(new driveStraight(-10.5));
     	addSequential(new autoGearDown());
     	addSequential(new driveStraight(4.5));
-    	
-     	addSequential(new turn(-0.5));
     }
 }

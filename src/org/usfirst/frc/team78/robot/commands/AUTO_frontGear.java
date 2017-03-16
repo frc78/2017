@@ -27,6 +27,8 @@ public class AUTO_frontGear extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	addSequential(new driveStraight(-6.22));
+    	addSequential(new driveStraight(-6.22), 4);
+    	addSequential(new autoGearDown());
+    	addSequential(new driveStraight(4.5));
     }
 }
