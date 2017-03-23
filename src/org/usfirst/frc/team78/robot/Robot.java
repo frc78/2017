@@ -3,12 +3,14 @@ package org.usfirst.frc.team78.robot;
 
 import javax.swing.text.StyleContext.SmallAttributeSet;
 
+import org.usfirst.frc.team78.robot.commands.AUTO_blueLoadingStationGear;
 import org.usfirst.frc.team78.robot.commands.AUTO_boilerGearBlue;
 import org.usfirst.frc.team78.robot.commands.AUTO_boilerGearRed;
 import org.usfirst.frc.team78.robot.commands.AUTO_doNothing;
 import org.usfirst.frc.team78.robot.commands.AUTO_driveFor5;
 import org.usfirst.frc.team78.robot.commands.AUTO_frontGear;
 import org.usfirst.frc.team78.robot.commands.AUTO_gearBoilerStraight;
+import org.usfirst.frc.team78.robot.commands.AUTO_redLoadingStationGear;
 import org.usfirst.frc.team78.robot.commands.gearIntake;
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
 import org.usfirst.frc.team78.robot.subsystems.Climber;
@@ -76,10 +78,12 @@ public class Robot extends IterativeRobot {
 		chooser = new SendableChooser<>();
 		chooser.addObject("Drive for 5", new AUTO_driveFor5());
 		chooser.addObject("Do nothing", new AUTO_doNothing());
-		chooser.addDefault("Front Gear", new AUTO_frontGear());
+		chooser.addObject("Front Gear", new AUTO_frontGear());
 		chooser.addObject("Drive Straight from Boiler", new AUTO_gearBoilerStraight());
 		chooser.addObject("Boiler Gear Blue", new AUTO_boilerGearBlue());	//untested	
-		chooser.addObject("Boiler Gear Red", new AUTO_boilerGearRed());	//current default auto
+		chooser.addObject("Boiler Gear Red", new AUTO_boilerGearRed());	
+		chooser.addDefault("loading Gear Red", new AUTO_redLoadingStationGear());	
+		chooser.addObject("loading Gear blue", new AUTO_blueLoadingStationGear());	
 		
 		SmartDashboard.putData("Auto mode", chooser);
 		//end auto chooser

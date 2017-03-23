@@ -37,6 +37,8 @@ public class RobotMap {
 		public static final int CLIMBER_STARBOARD = 13;
 		public static final int CLIMBER_PORT = 11;
 		
+		public static final int FLASHLIGHT = 3;
+		
 	//Sensors
 		
 		//These aren't needed because the encoders are plugged into the talons

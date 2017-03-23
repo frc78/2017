@@ -1,6 +1,7 @@
 package org.usfirst.frc.team78.robot;
 
 import org.usfirst.frc.team78.robot.commands.JoystickAnalogButton;
+import org.usfirst.frc.team78.robot.commands.changeLight;
 import org.usfirst.frc.team78.robot.commands.climb;
 import org.usfirst.frc.team78.robot.commands.gearIntake;
 import org.usfirst.frc.team78.robot.commands.gearOuttake;
@@ -116,8 +117,11 @@ public class OI {
 		//CLIBMER BUTTONS		
 		driverRT.whileHeld(new climb(1)); 
 		driverRT.whenReleased(new stopClimber());
-		driverLT.whileHeld(new climb(0.4));
+		driverLT.whileHeld(new climb(0.2));
 		driverLT.whenReleased(new stopClimber());  
+		
+//		manipulatorRT.whenPressed(new changeLight());
+//		manipulatorRT.whenReleased(new changeLight());
 		
 		
 		

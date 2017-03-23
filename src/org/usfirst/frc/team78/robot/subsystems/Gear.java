@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
@@ -20,6 +22,9 @@ public class Gear extends Subsystem {
 	
 	public CANTalon intakeMotor = new CANTalon(RobotMap.GEAR_INTAKE_MOTOR);
 	DoubleSolenoid gearSolenoid = new DoubleSolenoid(RobotMap.GEAR_SOLENOID1,RobotMap.GEAR_SOLENOID2);
+	
+	Relay spike = new Relay(RobotMap.FLASHLIGHT);
+	public boolean lightstate = false;
 	
 	public boolean solonoidVal = false;
 	
@@ -76,5 +81,22 @@ public class Gear extends Subsystem {
     	return intakeMotor.getOutputCurrent();
     }
     
+    public void lightOn(){
+    	spike.set(Relay.Value.kForward);
+    	lightstate = true;
+    }
+    
+    public void lightOff(){
+    	spike.set(Relay.Value.kOff);
+    	Timer.delay(0.1);
+    	spike.set(Relay.Value.kForward);
+    	Timer.delay(0.1);
+    	spike.set(Relay.Value.kOff);
+    	Timer.delay(0.1);
+    	spike.set(Relay.Value.kForward);
+    	Timer.delay(0.1);
+    	spike.set(Relay.Value.kOff);
+    	lightstate = false;
+    }
 }
 

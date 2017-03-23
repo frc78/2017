@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class driveStraight extends Command {
+public class driveStraightFast extends Command {
 
 	
 	public double desiredRots;
 	
-    public driveStraight(double desiredFeet) {
+    public driveStraightFast(double desiredFeet) {
         // Use requires() here to declare subsystem dependencies
        // eg. requires(chassis);
     	requires(Robot.chassis);
@@ -34,7 +34,7 @@ public class driveStraight extends Command {
     	Robot.chassis.portFront.reverseSensor(true);
     	Robot.chassis.portFront.setAllowableClosedLoopErr(0);
     	Robot.chassis.portFront.setProfile(0);
-    	Robot.chassis.portFront.configMaxOutputVoltage(4);
+    	Robot.chassis.portFront.configMaxOutputVoltage(10);
     	Robot.chassis.portFront.setEncPosition(0);
 		
     	
@@ -48,7 +48,7 @@ public class driveStraight extends Command {
     	Robot.chassis.starboardFront.reverseSensor(false);
     	Robot.chassis.starboardFront.setAllowableClosedLoopErr(0);
     	Robot.chassis.starboardFront.setProfile(1);
-    	Robot.chassis.starboardFront.configMaxOutputVoltage(4);
+    	Robot.chassis.starboardFront.configMaxOutputVoltage(10);
     	Robot.chassis.starboardFront.setEncPosition(0);
     	
     	Robot.chassis.starboardFront.setP(0.93);
