@@ -184,6 +184,9 @@ public class Robot extends IterativeRobot {
 		
 		chassis.motorInit();
 		climber.climberInit();
+		
+		//UNCOMMENT TO HAVE LIGHTS TURN OFF IN TURBO MODE
+		//gear.lightOn();
 	}
 
 	/**

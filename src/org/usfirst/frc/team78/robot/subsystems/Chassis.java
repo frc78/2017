@@ -87,15 +87,49 @@ public class Chassis extends Subsystem {
     }
 	
 	public void driveWithJoysticks() {
-    	double port = Robot.oi.getDriverLeftStick() * 0.45;
-    	double starboard = Robot.oi.getDriverRightStick() * 0.45;
-
+    	double port = Robot.oi.getDriverLeftStick(); //Multiply each by 0.45 and uncomment if statement for Granny Speed
+    	double starboard = Robot.oi.getDriverRightStick();
+    	
+    	
     	if(Robot.oi.driverStick.getRawButton(5) || Robot.oi.driverStick.getRawButton(6)){
-    		starboard /= 0.45;
-    		port /= 0.45;
-    	}
+    		//starboard /= 0.45;
+    		//port /= 0.45;
+    		//Robot.gear.lightOff();
+    		starboard *= 0.4;
+    		port *= 0.4;
+    	} //else {
+    		//Robot.gear.lightOn();
+    	//}
     	
     	setSpeed(port, starboard);
+    	
+    }
+	
+	//Added Saturday at RIDE
+	public double driveStraightDistance(double distanceClicks){
+    	double distanceError = (distanceClicks - portFront.getPosition()); //+ getLeftEnc()) / 2));
+    	double speed = distanceError * 0.00105;
+    	
+    	/*if (distanceError > 3000){
+    		speed = .8;
+    	}
+    	
+    	else if (speed > .8){
+    		speed = .8;
+    	} */
+    	if (speed < .25 && speed > 0){
+    		speed = .25;
+    	}
+    	else if(speed > -.25 && speed < 0){
+    		speed = -.25;
+    	}
+    	
+    	//double driftError = getAngle();
+    	//setSpeed(speed-((GYRO_P)*driftError), speed+((GYRO_P)*driftError));
+    	
+    	return speed;
+    	
+    	
     }
 	
 	public void setTurnSpeed(double speed){

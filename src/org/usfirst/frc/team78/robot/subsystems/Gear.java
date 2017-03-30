@@ -23,7 +23,7 @@ public class Gear extends Subsystem {
 	public CANTalon intakeMotor = new CANTalon(RobotMap.GEAR_INTAKE_MOTOR);
 	DoubleSolenoid gearSolenoid = new DoubleSolenoid(RobotMap.GEAR_SOLENOID1,RobotMap.GEAR_SOLENOID2);
 	
-	Relay spike = new Relay(RobotMap.FLASHLIGHT);
+	public Relay spike = new Relay(RobotMap.FLASHLIGHT);
 	public boolean lightstate = false;
 	
 	public boolean solonoidVal = false;
@@ -87,15 +87,18 @@ public class Gear extends Subsystem {
     }
     
     public void lightOff(){
-    	spike.set(Relay.Value.kOff);
-    	Timer.delay(0.1);
+    	spike.set(Relay.Value.kReverse);
+    	
+    	//Cycle back to bright mode (through dim and flashing modes)
+    	Timer.delay(0.02);
     	spike.set(Relay.Value.kForward);
-    	Timer.delay(0.1);
+    	Timer.delay(0.02);
     	spike.set(Relay.Value.kOff);
-    	Timer.delay(0.1);
+    	Timer.delay(0.02);
     	spike.set(Relay.Value.kForward);
-    	Timer.delay(0.1);
+    	Timer.delay(0.02);
     	spike.set(Relay.Value.kOff);
+    	
     	lightstate = false;
     }
 }

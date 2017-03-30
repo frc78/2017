@@ -87,7 +87,7 @@ public class OI {
 		manipulatorBack = new JoystickButton(manipulatorStick, 7);
 		manipulatorStart = new JoystickButton(manipulatorStick, 8);
 		manipulatorLT = new JoystickAnalogButton(manipulatorStick, 2, STICK_DEADZONE);
-		manipulatorLT = new JoystickAnalogButton(manipulatorStick, 3, STICK_DEADZONE);
+		manipulatorRT = new JoystickAnalogButton(manipulatorStick, 3, STICK_DEADZONE);
 		manipulatorLeftStickUp = new JoystickAnalogButton(manipulatorStick, 1, -3 * STICK_DEADZONE);
 		manipulatorLeftStickDown = new JoystickAnalogButton(manipulatorStick, 1, STICK_DEADZONE);
 		manipulatorRightStickUp = new JoystickAnalogButton(manipulatorStick, 5, -STICK_DEADZONE);
@@ -120,9 +120,12 @@ public class OI {
 		driverLT.whileHeld(new climb(0.2));
 		driverLT.whenReleased(new stopClimber());  
 		
-//		manipulatorRT.whenPressed(new changeLight());
-//		manipulatorRT.whenReleased(new changeLight());
+		manipulatorRT.whenPressed(new changeLight());
+		manipulatorRT.whenReleased(new changeLight());
 		
+		//UNCOMMENT IN TELEOPINIT IN ROBOT WHERE ON IS SET TO THE DEFAULT STATE OF THE LIGHTS if you want to have them on RB
+//		driverRB.whenPressed(new changeLight());
+//		driverRB.whenReleased(new changeLight());
 		
 		
 		//INTAKE BUTTONS
@@ -159,11 +162,11 @@ public class OI {
 		else return true;
 	}
 	
-	public boolean manipulatorRT() {
-		double trigger = manipulatorStick.getRawAxis(3);
-		if(Math.abs(trigger) < STICK_DEADZONE) return false;
-		else return true;
-	}
+//	public boolean manipulatorRT() {
+//		double trigger = manipulatorStick.getRawAxis(3);
+//		if(Math.abs(trigger) < STICK_DEADZONE) return false;
+//		else return true;
+//	}
 	
 	public double getDriverLeftStick(){
 		double stick = driverStick.getY();

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team78.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -26,9 +27,13 @@ public class AUTO_redLoadingStationGear extends CommandGroup {
         // arm.
     	
     	addSequential(new driveStraight(-3));
-    	addSequential(new turn(39));
-    	addSequential(new driveStraight(-6.0));
+    	addSequential(new turn(38));  //39
+    	addSequential(new driveStraight(-7), 4);
     	addSequential(new autoGearDown());
+    	
+    	//Wait 1.5 seconds for gear deploy (wait() uses setTimeout(), which takes seconds rather than milliseconds)
+    	addSequential(new wait(1.5));
+    	
     	addSequential(new driveStraight(0.3), 0.05);
     	addSequential(new driveStraight(3));
     	addSequential(new gearOuttake("out", 0.5), 0.5);
@@ -36,6 +41,6 @@ public class AUTO_redLoadingStationGear extends CommandGroup {
     	addSequential(new driveStraight(2));
     	addSequential(new gearUp(), 0.5);
     	addSequential(new turn(-0.5));
-    	addSequential(new driveStraightFast(-25));
+    	addSequential(new driveStraightFast(-21));
     }
 }
