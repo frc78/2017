@@ -53,6 +53,7 @@ public class Robot extends IterativeRobot {
 	public static final Intake intake = new Intake();
 	public static final Gear gear = new Gear();
 	public static final Climber climber = new Climber();
+	public static final Compressor c = new Compressor(0);
 	public static OI oi;
 	
 	public static NetworkTable table;
@@ -71,30 +72,28 @@ public class Robot extends IterativeRobot {
 	@Override 
 	public void robotInit() { 
 		oi = new OI();
-//		chooser.addDefault("Default Auto", new ExampleCommand());
-//		chooser.addObject("My Auto", new MyAutoCommand());
-		
-		//UNCOMMENT AUTO MODES
+
 		//auto chooser 
 		chooser = new SendableChooser<>();
-		chooser.addObject("Drive for 5", new AUTO_driveFor5());
-		chooser.addObject("Do nothing", new AUTO_doNothing());
-		chooser.addObject("Front Gear", new AUTO_frontGear());
-		chooser.addObject("Drive Straight from Boiler", new AUTO_gearBoilerStraight());
-		chooser.addObject("Boiler Gear Blue", new AUTO_boilerGearBlue());	//untested	
-		chooser.addObject("Boiler Gear Red", new AUTO_boilerGearRed());	
-		//chooser.addDefault("loading Gear Red", new AUTO_redLoadingStationGear());	
-		chooser.addObject("loading Gear blue", new AUTO_blueLoadingStationGear());	
 		
-		chooser.addDefault("test current", new TESTAUTO_driveTillCurrentDraw());
+		chooser.addDefault("Do nothing", new AUTO_doNothing());								//Will run if no choice is made
+		chooser.addObject("Drive for 5", new AUTO_driveFor5());								//Robot only drives enough for movement bonus
+		chooser.addObject("Front Gear", new AUTO_frontGear());								//Middle gear either alliance
+		chooser.addObject("Boiler Gear BLUE", new AUTO_boilerGearBlue());					//untested	Boiler side peg for Blue Alliance
+		chooser.addObject("Boiler Gear RED", new AUTO_boilerGearRed());						//Boiler side peg for Red Alliance
+		chooser.addObject("Loading Gear BLUE", new AUTO_blueLoadingStationGear());			//Loading zone side peg for Blue Alliance
+		chooser.addObject("Loading Gear RED", new AUTO_redLoadingStationGear());			//Loading zone side peg for Red Alliance
+
+		
 		
 		SmartDashboard.putData("Auto mode", chooser);
 		//end auto chooser
 		
 		table = NetworkTable.getTable("DataTable");
-	
-		Compressor c = new Compressor(0);
+		
+		//Turn on compressor
     	c.setClosedLoopControl(true);
+    	
     	new Thread(() -> {
     	//camera
     		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
