@@ -25,9 +25,9 @@ public class AUTO_boilerGearBlue extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	addSequential(new driveStraight(-2.9));
-    	addSequential(new turn(40));
-    	addSequential(new driveStraight(-6.3));
+    	addSequential(new driveStraight(-2.9)); //Initial Drive (ID)
+    	addSequential(new turn(40)); //Turn Angle (<)
+    	addSequential(new driveStraight(-6.3)); //Drive After Turn (DAT)
     	addSequential(new autoGearDown());
     	addSequential(new driveStraight(4.5));
     	

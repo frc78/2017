@@ -1,15 +1,13 @@
 package org.usfirst.frc.team78.robot.commands;
 
-import org.omg.CORBA.TIMEOUT;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AUTO_boilerGearRed extends CommandGroup {
+public class TESTAUTO_driveTillCurrentDraw extends CommandGroup {
 
-    public AUTO_boilerGearRed() {
+    public TESTAUTO_driveTillCurrentDraw() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -26,14 +24,6 @@ public class AUTO_boilerGearRed extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
-    	addSequential(new driveStraight(-2.9)); //Initial Drive (ID)
-    	addSequential(new turn(-40)); //Turn Angle (<)
-    	addSequential(new driveStraight(-6.3)); //Drive After Turn (DAT)
-    	addSequential(new autoGearDown());
-    	addSequential(new driveStraight(4.5));
-    	
-     	addSequential(new turn(0.5));
-    	
+    	addSequential(new driveStraightCurrentStop(-5));
     }
 }

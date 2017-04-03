@@ -26,15 +26,13 @@ public class AUTO_blueLoadingStationGear extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	addSequential(new driveStraight(-3));
-    	addSequential(new turn(-47));
-    	//-6.0 fell short, added .75 feet to both red and blue loading station autos after Qualification Match 14 on Saturday, March 25, 2017 at RIDE
-    	addSequential(new driveStraightDistanceTime(-6.55, 5000));
+    	addSequential(new driveStraight(-3)); //Initial Drive (ID)
+    	addSequential(new turn(-38));  //39, Turn Angle (<)
+    	addSequential(new driveStraight(-7), 4); //Drive After Turn (DAT)
     	addSequential(new autoGearDown());
-    	//Timer.delay(1.5);
     	
-    	//Wait 1.5 seconds for gear deploy
-    	addSequential(new wait(1500));
+    	//Wait 1.5 seconds for gear deploy (wait() uses setTimeout(), which takes seconds rather than milliseconds)
+    	addSequential(new wait(1.5));
     	
     	addSequential(new driveStraight(0.3), 0.05);
     	addSequential(new driveStraight(3));
@@ -43,6 +41,6 @@ public class AUTO_blueLoadingStationGear extends CommandGroup {
     	addSequential(new driveStraight(2));
     	addSequential(new gearUp(), 0.5);
     	addSequential(new turn(0.5));
-    	addSequential(new driveStraightFast(-25));
+    	addSequential(new driveStraightFast(-21));
     }
 }

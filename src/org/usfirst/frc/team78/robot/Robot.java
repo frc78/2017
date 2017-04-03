@@ -11,6 +11,7 @@ import org.usfirst.frc.team78.robot.commands.AUTO_driveFor5;
 import org.usfirst.frc.team78.robot.commands.AUTO_frontGear;
 import org.usfirst.frc.team78.robot.commands.AUTO_gearBoilerStraight;
 import org.usfirst.frc.team78.robot.commands.AUTO_redLoadingStationGear;
+import org.usfirst.frc.team78.robot.commands.TESTAUTO_driveTillCurrentDraw;
 import org.usfirst.frc.team78.robot.commands.gearIntake;
 import org.usfirst.frc.team78.robot.subsystems.Chassis;
 import org.usfirst.frc.team78.robot.subsystems.Climber;
@@ -82,8 +83,10 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Drive Straight from Boiler", new AUTO_gearBoilerStraight());
 		chooser.addObject("Boiler Gear Blue", new AUTO_boilerGearBlue());	//untested	
 		chooser.addObject("Boiler Gear Red", new AUTO_boilerGearRed());	
-		chooser.addDefault("loading Gear Red", new AUTO_redLoadingStationGear());	
+		//chooser.addDefault("loading Gear Red", new AUTO_redLoadingStationGear());	
 		chooser.addObject("loading Gear blue", new AUTO_blueLoadingStationGear());	
+		
+		chooser.addDefault("test current", new TESTAUTO_driveTillCurrentDraw());
 		
 		SmartDashboard.putData("Auto mode", chooser);
 		//end auto chooser
@@ -167,6 +170,9 @@ public class Robot extends IterativeRobot {
 //		SmartDashboard.putNumber("port motor '.get' ", chassis.portFront.getPosition());
 //		SmartDashboard.putNumber("nav-X", Robot.chassis.getAngle());
 		
+		SmartDashboard.putNumber("Port current 'PI' ", Robot.chassis.getPortCurrent());
+		SmartDashboard.putNumber("Starboard current 'Compressor' ", Robot.chassis.getStarboardCurrent());
+		
 		Scheduler.getInstance().run();
 	}
 
@@ -221,6 +227,9 @@ public class Robot extends IterativeRobot {
 //		}
 //		
 //		SmartDashboard.putNumber("Gears Left", countdown);
+		
+		SmartDashboard.putNumber("Port current 'PI' ", Robot.chassis.getPortCurrent());
+		SmartDashboard.putNumber("Starboard current 'Compressor' ", Robot.chassis.getStarboardCurrent());
 		
 		Scheduler.getInstance().run();
 

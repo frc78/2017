@@ -26,9 +26,9 @@ public class AUTO_redLoadingStationGear extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	addSequential(new driveStraight(-3));
-    	addSequential(new turn(38));  //39
-    	addSequential(new driveStraight(-7), 4);
+    	addSequential(new driveStraight(-3)); //Initial Drive (ID)
+    	addSequential(new turn(38));  //39, Turn Angle (<)
+    	addSequential(new driveStraight(-7), 4); //Drive After Turn (DAT)
     	addSequential(new autoGearDown());
     	
     	//Wait 1.5 seconds for gear deploy (wait() uses setTimeout(), which takes seconds rather than milliseconds)

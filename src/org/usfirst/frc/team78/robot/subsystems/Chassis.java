@@ -67,6 +67,8 @@ public class Chassis extends Subsystem {
 	public boolean timerStart = false;
 	public boolean atTarget = false;
 	final double GYRO_P = (0.024);	
+	public boolean currentDrawPort;
+	public boolean currentDrawStarboard;
 	
 //TIMER
 	public Timer timer = new Timer();	
@@ -272,6 +274,12 @@ public class Chassis extends Subsystem {
     	return ahrs.getRoll();//just look at all the different gets, figure out what is going on
     }
     
+    public double getPortCurrent(){
+    	return portFront.getOutputCurrent();
+    }
+    public double getStarboardCurrent(){
+    	return starboardFront.getOutputCurrent();
+    }
     
 }
 
