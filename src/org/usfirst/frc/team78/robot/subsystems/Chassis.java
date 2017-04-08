@@ -22,11 +22,12 @@ public class Chassis extends Subsystem {
 
 //Motors
 	public CANTalon starboardFront = new CANTalon(RobotMap.STARBOARD_FRONT);
-		   CANTalon starboardRear = new CANTalon(RobotMap.STARBOARD_REAR);
-	       CANTalon starboardTop = new CANTalon(RobotMap.STARBOARD_TOP);
+	public CANTalon starboardRear = new CANTalon(RobotMap.STARBOARD_REAR);
+	public CANTalon starboardTop = new CANTalon(RobotMap.STARBOARD_TOP);
+	
 	public CANTalon portFront = new CANTalon(RobotMap.PORT_FRONT);
-		   CANTalon portRear = new CANTalon(RobotMap.PORT_REAR);
-		   CANTalon portTop = new CANTalon(RobotMap.PORT_TOP);
+	public CANTalon portRear = new CANTalon(RobotMap.PORT_REAR);
+	public CANTalon portTop = new CANTalon(RobotMap.PORT_TOP);
 	
 	public void motorInit(){
 		starboardRear.changeControlMode(TalonControlMode.Follower);
@@ -92,8 +93,11 @@ public class Chassis extends Subsystem {
     	double port = Robot.oi.getDriverLeftStick(); //Multiply each by 0.45 and uncomment if statement for Granny Speed
     	double starboard = Robot.oi.getDriverRightStick();
     	
-    	
-    	if(Robot.oi.driverStick.getRawButton(5) || Robot.oi.driverStick.getRawButton(6)){
+    	if( Robot.oi.driverStick.getRawButton(6)){
+    		starboard *= 0.6;
+    		port *= 0.6;
+    	}   	
+    	if(Robot.oi.driverStick.getRawButton(5)){
     		//starboard /= 0.45;
     		//port /= 0.45;
     		//Robot.gear.lightOff();

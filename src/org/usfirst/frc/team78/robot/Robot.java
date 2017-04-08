@@ -23,7 +23,9 @@ import org.usfirst.frc.team78.robot.subsystems.Climber;
 
 import edu.wpi.cscore.CameraServerJNI;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -54,6 +56,7 @@ public class Robot extends IterativeRobot {
 	public static final Gear gear = new Gear();
 	public static final Climber climber = new Climber();
 	public static final Compressor c = new Compressor(0);
+	public static final PowerDistributionPanel PDP = new PowerDistributionPanel(0);
 	public static OI oi;
 	
 	public static NetworkTable table;
@@ -76,13 +79,13 @@ public class Robot extends IterativeRobot {
 		//auto chooser 
 		chooser = new SendableChooser<>();
 		
-		chooser.addDefault("Do nothing", new AUTO_doNothing());								//Will run if no choice is made
+		chooser.addObject("Do nothing", new AUTO_doNothing());								//Will run if no choice is made
 		chooser.addObject("Drive for 5", new AUTO_driveFor5());								//Robot only drives enough for movement bonus
 		chooser.addObject("Front Gear", new AUTO_frontGear());								//Middle gear either alliance
 		chooser.addObject("Boiler Gear BLUE", new AUTO_boilerGearBlue());					//untested	Boiler side peg for Blue Alliance
 		chooser.addObject("Boiler Gear RED", new AUTO_boilerGearRed());						//Boiler side peg for Red Alliance
 		chooser.addObject("Loading Gear BLUE", new AUTO_blueLoadingStationGear());			//Loading zone side peg for Blue Alliance
-		chooser.addObject("Loading Gear RED", new AUTO_redLoadingStationGear());			//Loading zone side peg for Red Alliance
+		chooser.addDefault("Loading Gear RED", new AUTO_redLoadingStationGear());			//Loading zone side peg for Red Alliance
 
 		
 		
@@ -97,9 +100,13 @@ public class Robot extends IterativeRobot {
     	new Thread(() -> {
     	//camera
     		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-    		camera.setResolution(240, 180);
+    		camera.setVideoMode(VideoMode.PixelFormat.kMJPEG, 200, 160, 10);
+//    		camera.setResolution(240, 180);
+//    		camera.setFPS(5);
+    		
 
     	}).start();
+    	
 		//Shooter init 
 		shooter.shooterMotorInit();
 		shooter.shooterPort.setPosition(0);
@@ -200,8 +207,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		
-//		SmartDashboard.putNumber("starboard motor '.get' ", chassis.starboardFront.getPosition());
-//		SmartDashboard.putNumber("port motor '.get' ", chassis.portFront.getPosition());
+		SmartDashboard.putNumber("starboard motor '.get' ", chassis.starboardFront.getPosition());
+		SmartDashboard.putNumber("port motor '.get' ", chassis.portFront.getPosition());
 //				
 //		boolean bool = false;
 //		if(Robot.gear.intakeMotor.get() != 0){
@@ -227,9 +234,27 @@ public class Robot extends IterativeRobot {
 //		
 //		SmartDashboard.putNumber("Gears Left", countdown);
 		
-		SmartDashboard.putNumber("Port current 'PI' ", Robot.chassis.getPortCurrent());
-		SmartDashboard.putNumber("Starboard current 'Compressor' ", Robot.chassis.getStarboardCurrent());
+		SmartDashboard.putNumber("Port current 'PI' 4", Robot.chassis.getPortCurrent());
+		SmartDashboard.putNumber("Starboard current 'Compressor' 3", Robot.chassis.getStarboardCurrent());
 		
+		SmartDashboard.putNumber("drive motor 2", Robot.chassis.starboardTop.getOutputCurrent());
+		SmartDashboard.putNumber("drive motor 1", Robot.chassis.starboardRear.getOutputCurrent());
+		
+		SmartDashboard.putNumber("drive motor 5", Robot.chassis.portTop.getOutputCurrent());
+		SmartDashboard.putNumber("drive motor 6", Robot.chassis.portRear.getOutputCurrent());
+		
+		SmartDashboard.putNumber("motor 3", PDP.getCurrent(0));
+		SmartDashboard.putNumber("motor 1", PDP.getCurrent(1));
+		SmartDashboard.putNumber("motor 2", PDP.getCurrent(2));
+		
+		SmartDashboard.putNumber("motor 4", PDP.getCurrent(13));
+		SmartDashboard.putNumber("motor 5", PDP.getCurrent(14));
+		SmartDashboard.putNumber("motor 6", PDP.getCurrent(15));
+		
+		SmartDashboard.putNumber("Total Current", PDP.getTotalCurrent());
+		
+		
+	
 		Scheduler.getInstance().run();
 
 

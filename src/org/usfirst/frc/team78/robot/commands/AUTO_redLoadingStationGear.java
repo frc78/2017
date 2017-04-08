@@ -25,7 +25,7 @@ public class AUTO_redLoadingStationGear extends CommandGroup {
     	addSequential(new gearOuttake("out", 0), 0.5);
     	addSequential(new driveStraight(2));
     	addSequential(new gearUp(), 0.5);
-    	addSequential(new turn(-0.5));
+    	addSequential(new turn(-0));
     	addSequential(new driveStraightFast(-21));
     }
 }
