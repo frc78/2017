@@ -11,8 +11,8 @@ public class AUTO_redLoadingStationGear extends CommandGroup {
     public AUTO_redLoadingStationGear() {
   
     	
-    	addSequential(new driveStraight(-3)); //Initial Drive (ID)
-    	addSequential(new turn(38));  //39, Turn Angle (<)
+    	addSequential(new driveStraight(-3.1)); //Initial Drive (ID)
+    	addSequential(new turn(45));  //39, Turn Angle (<)
     	addSequential(new driveStraight(-7), 4); //Drive After Turn (DAT)
     	addSequential(new autoGearDown());
     	

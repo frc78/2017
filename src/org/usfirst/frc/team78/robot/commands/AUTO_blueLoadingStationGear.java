@@ -26,7 +26,7 @@ public class AUTO_blueLoadingStationGear extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	addSequential(new driveStraight(-3.15)); //Initial Drive (ID)
+    	addSequential(new driveStraight(-3.195)); //Initial Drive (ID)
     	addSequential(new turn(-45));  //39, Turn Angle (<)
     	addSequential(new driveStraight(-7.5), 4); //Drive After Turn (DAT)
     	addSequential(new autoGearDown());
