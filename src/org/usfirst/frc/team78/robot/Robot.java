@@ -84,8 +84,8 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Front Gear", new AUTO_frontGear());								//Middle gear either alliance
 		chooser.addObject("Boiler Gear BLUE", new AUTO_boilerGearBlue());					//untested	Boiler side peg for Blue Alliance
 		chooser.addObject("Boiler Gear RED", new AUTO_boilerGearRed());						//Boiler side peg for Red Alliance
-		chooser.addObject("Loading Gear BLUE (turn left)", new AUTO_blueLoadingStationGear());			//Loading zone side peg for Blue Alliance
-		chooser.addDefault("Loading Gear RED (turn right)", new AUTO_redLoadingStationGear());			//Loading zone side peg for Red Alliance
+		chooser.addDefault("Loading Gear BLUE (turn left)", new AUTO_blueLoadingStationGear());			//Loading zone side peg for Blue Alliance
+		chooser.addObject("Loading Gear RED (turn right)", new AUTO_redLoadingStationGear());			//Loading zone side peg for Red Alliance
 
 		
 		
